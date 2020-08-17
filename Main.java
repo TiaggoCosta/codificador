@@ -4,7 +4,6 @@ import javax.swing.*;
 public class Main {
  
     public static void main(String[] args) {
-        final JFrame frame = new JFrame("Codificador/Decodificador");
         Boolean isOn = true;
 
         while(isOn) {
@@ -28,13 +27,19 @@ public class Main {
             final JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(false);
     
-            int retVal = fileChooser.showOpenDialog(frame);
+            int retVal = fileChooser.showOpenDialog(null);
             if (retVal == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
-                JOptionPane.showMessageDialog(frame, selectedFile.getName());
+                JOptionPane.showMessageDialog(null, selectedFile.getName());
             }
 
-            System.out.println("retVal: " + retVal); // APPROVE_OPTION = 0 : CANCEL = 1
+            // APPROVE_OPTION = 0 : CANCEL = 1 : close = 1
+            if(retVal == 0) {
+                System.out.println("Open: " + retVal);
+            } else if(retVal == 1) {
+                System.out.println("Cancel/close: " + retVal); // retornar?
+                continue;
+            } 
             
             // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
             Object[] items = { "Golomb", "Elias-Gamma", "Fibonacci", "Unária", "Delta" };
