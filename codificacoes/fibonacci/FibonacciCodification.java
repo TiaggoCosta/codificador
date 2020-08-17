@@ -1,9 +1,8 @@
 package codificacoes.fibonacci;
 
-import codificacoes.Decoder;
-import codificacoes.Encoder;
+import codificacoes.Coder;
 
-public class FibonacciCodification implements Encoder, Decoder {
+public class FibonacciCodification implements Coder {
 
     @Override
     public void decode() {

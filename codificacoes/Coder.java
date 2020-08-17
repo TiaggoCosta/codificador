@@ -1,6 +1,8 @@
 package codificacoes;
 
-public interface Decoder {
+public interface Coder {
+
+    public void encode();
 
     public void decode();
 }

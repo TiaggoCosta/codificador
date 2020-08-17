@@ -1,9 +1,8 @@
 package codificacoes.golomb;
 
-import codificacoes.Decoder;
-import codificacoes.Encoder;
+import codificacoes.Coder;
 
-public class GolombCodification implements Encoder, Decoder {
+public class GolombCodification implements Coder {
     
     @Override
     public void decode() {

@@ -1,6 +1,15 @@
-import java.io.*;
+import codificacoes.Coder;
+import codificacoes.delta.DeltaCodification;
+import codificacoes.eliasGamma.EliasGammaCodification;
+import codificacoes.fibonacci.FibonacciCodification;
+import codificacoes.golomb.GolombCodification;
+import codificacoes.unaria.UnaryCodification;
+
 import javax.swing.*;
- 
+import java.io.File;
+
+import static codificacoes.CodingType.*;
+
 public class Main {
  
     public static void main(String[] args) {
@@ -49,8 +58,9 @@ public class Main {
             } 
             
             // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
-            Object[] items = { "Golomb", "Elias-Gamma", "Fibonacci", "Unária", "Delta" };
-            Object selectedValue = JOptionPane.showInputDialog(null, "Escolha um codificador:", "Opção",
+            Object[] items = { Golomb.getName(), EliasGamma.getName(), Fibonacci.getName(), Unary.getName(), Delta.getName() };
+            String codingType = op == 1 ? "codificador" : "decodificador";
+            Object selectedValue = JOptionPane.showInputDialog(null, "Escolha um " + codingType + ":", "Opção",
                 JOptionPane.INFORMATION_MESSAGE, null, items, items[0]);
 
             if(selectedValue == null) {
@@ -58,6 +68,22 @@ public class Main {
                 continue;
             } else {
                 System.out.println("Selected Value: " + selectedValue);
+
+                Coder coder = null;
+
+                switch (valueOf((String) selectedValue)) {
+                    case Golomb -> coder = new GolombCodification();
+                    case EliasGamma -> coder = new EliasGammaCodification();
+                    case Fibonacci -> coder = new FibonacciCodification();
+                    case Unary -> coder = new UnaryCodification();
+                    case Delta -> coder = new DeltaCodification();
+                }
+
+                if (op == 1) {
+                    coder.encode();
+                } else {
+                    coder.decode();
+                }
             }
         }
         System.exit(0);
