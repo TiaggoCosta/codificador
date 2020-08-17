@@ -8,9 +8,17 @@ public class Main {
     public static void main(String[] args) {
         final JFrame frame = new JFrame("Encoder Demo");
  
+        // escolher função (0-codificar 1-decodificar)
+        int op = 0;  
+      
+        Object[] functions = { "Codificar", "Decodificar" };
+        op = JOptionPane.showOptionDialog(null, "Escolha a função desejada:", "Função",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+            null, functions, functions[0]);
+         
+        // seleção de arquivo
         final JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(false);
-        fileChooser.setCurrentDirectory(new File("./arquivos"));
  
         JButton btn1 = new JButton("Show Open Dialog");
         btn1.addActionListener(new ActionListener() {
