@@ -12,33 +12,23 @@ public class Main {
         int op = 0;  
       
         Object[] functions = { "Codificar", "Decodificar" };
-        op = JOptionPane.showOptionDialog(null, "Escolha a função desejada:", "Função",
-            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-            null, functions, functions[0]);
+        op = JOptionPane.showOptionDialog(null, "Escolha a função desejada:", "Função", JOptionPane.DEFAULT_OPTION,
+        JOptionPane.INFORMATION_MESSAGE, null, functions, functions[0]);
          
         // seleção de arquivo
         final JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(false);
  
-        JButton btn1 = new JButton("Show Open Dialog");
-        btn1.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e) {
-                int retVal = fileChooser.showOpenDialog(frame);
-                if (retVal == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    JOptionPane.showMessageDialog(frame, selectedFile.getName());
-                }
- 
-            }
-        });
- 
-        Container pane = frame.getContentPane();
-        pane.setLayout(new GridLayout(3, 1, 10, 10));
-        pane.add(btn1);
- 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 200);
-        frame.setVisible(true);
+        int retVal = fileChooser.showOpenDialog(frame);
+        if (retVal == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            JOptionPane.showMessageDialog(frame, selectedFile.getName());
+        }
+        
+        // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
+        Object[] items = { "Golomb", "Elias-Gamma", "Fibonacci", "Unária", "Delta" };
+        Object selectedValue = JOptionPane.showInputDialog(null, "Escolha um codificador:", "Opção",
+              JOptionPane.INFORMATION_MESSAGE, null, items, items[0]);
+        System.out.println("cod: " + selectedValue);
     }
 }
