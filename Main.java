@@ -11,16 +11,24 @@ public class Main {
             int op = 0;  
         
             Object[] functions = { "Codificar", "Decodificar" };
-            op = JOptionPane.showOptionDialog(null, "Escolha a função desejada:", "Função", JOptionPane.DEFAULT_OPTION,
-            JOptionPane.INFORMATION_MESSAGE, null, functions, functions[0]);
+            op = JOptionPane.showOptionDialog(null, "Escolha a função desejada: (Para encerrar feche a janela!)", "Função", 
+            JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, functions, functions[0]);
             
             if(op == 0) {
                 System.out.println("Codificar: " + op);
             } else if(op == 1) {
                 System.out.println("Decodificar: " + op);
             } else {
-                isOn = false;
-                break;
+                Object[] options = { "Sim, finalizar programa", "Não, desejo recomeçar" };
+                int end = JOptionPane.showOptionDialog(null, "Deseja encerrar o programa?", "Finalizar",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+                if(end == 0) {
+                    isOn = false;
+                    break;
+                } else {
+                    continue;
+                }
             }
             
             // seleção de arquivo

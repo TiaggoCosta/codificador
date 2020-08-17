@@ -1,5 +1,5 @@
 <h1>Trabalho do Grau A de Teoria da Informação - Unisinos</h1>
-<hr>
+
 <h3>Membros do Grupo:</h3>
 
 <p>👩‍🎓 Karolina Pacheco</p>
@@ -24,11 +24,13 @@ A estrutura do processo é a seguinte: a partir da leitura do arquivo original, 
 <p>• O processo de geração do arquivo compactado pode implicar no uso de um buffer de saída onde os codewords (resultantes da codificação do arquivo) irão sendo inseridos um a um, empregando-se para isto operações bit a bit (bitwise ops). Finalmente, o conteúdo do buffer de saída é então gravado em um arquivo.</p>
 
 <p>• O encoder e o decoder podem ser na realidade o mesmo programa, sendo somente parametrizado de forma distinta para cada caso (um parâmetro pode ser o modo de operação: codificar ou decodificar).</p>
+
 <hr>
 <h4>🛠 TBD ⚒</h4>
+
+<p>(✔) Menu</p>
 <p>Leitura</p>
 <p>Escrita</p>
-<p>Menu</p>
 <p>📒Unária</p> 
 <p>📙Delta</p>
 <p>📕Fibonacci</p>
