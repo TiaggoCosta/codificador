@@ -1,5 +1,3 @@
-import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
  
@@ -15,6 +13,8 @@ public class Main {
         op = JOptionPane.showOptionDialog(null, "Escolha a função desejada:", "Função", JOptionPane.DEFAULT_OPTION,
         JOptionPane.INFORMATION_MESSAGE, null, functions, functions[0]);
          
+        System.out.println("op: " + op);
+        
         // seleção de arquivo
         final JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(false);
