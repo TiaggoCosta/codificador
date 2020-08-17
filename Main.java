@@ -33,11 +33,10 @@ public class Main {
                 JOptionPane.showMessageDialog(null, selectedFile.getName());
             }
 
-            // APPROVE_OPTION = 0 : CANCEL = 1 : close = 1
             if(retVal == 0) {
                 System.out.println("Open: " + retVal);
             } else if(retVal == 1) {
-                System.out.println("Cancel/close: " + retVal); // retornar?
+                System.out.println("Cancel/close: " + retVal);
                 continue;
             } 
             
@@ -46,10 +45,11 @@ public class Main {
             Object selectedValue = JOptionPane.showInputDialog(null, "Escolha um codificador:", "Opção",
                 JOptionPane.INFORMATION_MESSAGE, null, items, items[0]);
 
-            System.out.println("cod: " + selectedValue); // CANCEL = null
-
-            if(op == 1) {
-                isOn = false;
+            if(selectedValue == null) {
+                System.out.println("Close: " + selectedValue);
+                continue;
+            } else {
+                System.out.println("Selected Value: " + selectedValue);
             }
         }
         System.exit(0);
