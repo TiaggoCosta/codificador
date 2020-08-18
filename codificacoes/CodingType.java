@@ -1,5 +1,7 @@
 package codificacoes;
 
+import java.util.Arrays;
+
 public enum CodingType {
     Golomb("Golomb"),
     EliasGamma("Elias-Gamma"),
@@ -15,5 +17,12 @@ public enum CodingType {
 
     public String getName() {
         return name;
+    }
+
+    public static CodingType getValueByName(String string) {
+        return Arrays.stream(CodingType.values())
+                .filter(codingType -> codingType.getName().equals(string))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("CodingType not found: " + string));
     }
 }

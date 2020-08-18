@@ -17,7 +17,7 @@ public class Main {
 
         while(isOn) {
             // escolher função (0-codificar 1-decodificar)
-            int op = 0;  
+            int op;
         
             Object[] functions = { "Codificar", "Decodificar" };
             op = JOptionPane.showOptionDialog(null, "Escolha a função desejada: (Para encerrar feche a janela!)", "Função", 
@@ -71,7 +71,7 @@ public class Main {
 
                 Coder coder = null;
 
-                switch (valueOf((String) selectedValue)) {
+                switch (getValueByName((String) selectedValue)) {
                     case Golomb -> coder = new GolombCodification();
                     case EliasGamma -> coder = new EliasGammaCodification();
                     case Fibonacci -> coder = new FibonacciCodification();
