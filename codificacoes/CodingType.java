@@ -3,16 +3,22 @@ package codificacoes;
 import java.util.Arrays;
 
 public enum CodingType {
-    Golomb("Golomb"),
-    EliasGamma("Elias-Gamma"),
-    Fibonacci("Fibonacci"),
-    Unary("Unária"),
-    Delta("Delta");
+    Golomb(0,"Golomb"),
+    EliasGamma(1,"Elias-Gamma"),
+    Fibonacci(2,"Fibonacci"),
+    Unary(3,"Unária"),
+    Delta(4,"Delta");
 
     private final String name;
+    private final int identifier;
 
-    CodingType(String name) {
+    CodingType(int identifier, String name) {
+        this.identifier = identifier;
         this.name = name;
+    }
+
+    public int getIdentifier() {
+        return identifier;
     }
 
     public String getName() {
