@@ -6,7 +6,7 @@ public enum CodingType {
     Golomb(0,"Golomb"),
     EliasGamma(1,"Elias-Gamma"),
     Fibonacci(2,"Fibonacci"),
-    Unary(3,"Unária"),
+    Unary(3,"Unaria"),
     Delta(4,"Delta");
 
     private final String name;
