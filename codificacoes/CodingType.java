@@ -25,10 +25,10 @@ public enum CodingType {
         return name;
     }
 
-    public static CodingType getValueByName(String string) {
+    public static CodingType getValueByName(String name) {
         return Arrays.stream(CodingType.values())
-                .filter(codingType -> codingType.getName().equals(string))
+                .filter(codingType -> codingType.getName().equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("CodingType not found: " + string));
+                .orElseThrow(() -> new IllegalArgumentException("CodingType not found: " + name));
     }
 }
