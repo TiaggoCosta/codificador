@@ -78,17 +78,31 @@ public class Main {
                 } else {
                     final CodingType selectedCodingType = getValueByName((String) selectedValue);
                     Encoder encoder = null;
-                    int divisor = 0;
 
-                    //Encoder encoder = new Encoder(selectedFile,identifiers.get(selectedValue), divisor);
                     switch (selectedCodingType) {
                         case Golomb:
-                            encoder = new GolombCodification();
-                            String inputValue = JOptionPane.showInputDialog("Insira o valor do divisor: ");
-                            try {
-                                divisor = Integer.parseInt(inputValue);
-                            } catch (Exception e) {
-                                //TODO: handle exception
+                            boolean invalidDivisor = true;
+                            String inputValue = null;
+
+                            while (invalidDivisor) {
+                                inputValue = JOptionPane.showInputDialog("Insira o valor do divisor: ");
+
+                                if (inputValue == null) {
+                                    break;
+                                }
+
+                                try {
+                                    int divisor = Integer.parseInt(inputValue);
+                                    encoder = new GolombCodification(divisor);
+                                    System.out.println("Divisor: " + divisor);
+                                    invalidDivisor = false;
+                                } catch (Exception e) {
+                                    //TODO: handle exception
+                                }
+                            }
+
+                            if (inputValue == null) {
+                                continue;
                             }
                             break;
                         case EliasGamma:
@@ -107,7 +121,6 @@ public class Main {
 
                     System.out.println("Codificação do arquivo: " + selectedFile.getPath());
                     System.out.println("Codificador: " + selectedCodingType.getName());
-                    System.out.println("Divisor: " + divisor);
                     //TODO: class or method to read and write the files
                     try {
                         byte[] data = Files.readAllBytes(selectedFile.toPath());
@@ -116,7 +129,7 @@ public class Main {
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");
                         String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                        Files.write(Paths.get(newPath), data);
+                        Files.write(Paths.get(newPath), result);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
