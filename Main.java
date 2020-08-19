@@ -79,7 +79,7 @@ public class Main {
 
                     //Encoder encoder = new Encoder(selectedFile,identifiers.get(selectedValue), divisor);
                     switch (selectedCodingType) {
-                        case Golomb -> {
+                        case Golomb:
                             encoder = new GolombCodification();
                             String inputValue = JOptionPane.showInputDialog("Insira o valor do divisor: ");
                             try {
@@ -87,11 +87,19 @@ public class Main {
                             } catch (Exception e) {
                                 //TODO: handle exception
                             }
-                        }
-                        case EliasGamma -> encoder = new EliasGammaCodification();
-                        case Fibonacci -> encoder = new FibonacciCodification();
-                        case Unary -> encoder = new UnaryCodification();
-                        case Delta -> encoder = new DeltaCodification();
+                            break;
+                        case EliasGamma:
+                            encoder = new EliasGammaCodification();
+                            break;
+                        case Fibonacci:
+                            encoder = new FibonacciCodification();
+                            break;
+                        case Unary:
+                            encoder = new UnaryCodification();
+                            break;
+                        case Delta:
+                            encoder = new DeltaCodification();
+                            break;
                     }
 
                     System.out.println("Encoder: " + selectedFile.getPath() + " codificador: " + selectedCodingType.getIdentifier() + " divisor: " + divisor);
