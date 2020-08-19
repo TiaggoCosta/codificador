@@ -2,5 +2,5 @@ package codificacoes;
 
 public interface Encoder {
 
-    void encode();
+    byte[] encode(byte [] data);
 }

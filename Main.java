@@ -8,6 +8,9 @@ import codificacoes.unaria.UnaryCodification;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static codificacoes.CodingType.*;
 
@@ -103,8 +106,18 @@ public class Main {
                     }
 
                     System.out.println("Encoder: " + selectedFile.getPath() + " codificador: " + selectedCodingType.getIdentifier() + " divisor: " + divisor);
-
-                    encoder.encode();
+                    //TODO: class or method to read and write the files
+                    try {
+                        byte[] data = Files.readAllBytes(selectedFile.toPath());
+                        byte[] result = encoder.encode(data);
+                        final String ext = ".cod";
+                        String filePath = selectedFile.getPath();
+                        int extIndex = filePath.lastIndexOf(".");
+                        String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
+                        Files.write(Paths.get(newPath), data);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

@@ -14,7 +14,7 @@ public class UnaryCodification implements Encoder, Decoder {
     }
 
     @Override
-    public void encode() {
+    public byte[] encode(byte [] data) {
         String s = "abc";
         int asc2;
         String codification = "";
@@ -29,5 +29,6 @@ public class UnaryCodification implements Encoder, Decoder {
         }
 
         System.out.println("the codification is: " + codification);
+        return data;
     }
 }

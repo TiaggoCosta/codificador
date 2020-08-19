@@ -11,7 +11,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
     }
 
     @Override
-    public void encode() {
-
+    public byte[] encode(byte [] data) {
+        return data;
     }
 }
