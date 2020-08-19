@@ -1,11 +1,12 @@
 package codificacoes.unaria;
 
-import codificacoes.Coder;
+import codificacoes.Decoder;
+import codificacoes.Encoder;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class UnaryCodification implements Coder {
+public class UnaryCodification implements Encoder, Decoder {
 
     @Override
     public void decode() {

@@ -1,8 +1,9 @@
 package codificacoes.delta;
 
-import codificacoes.Coder;
+import codificacoes.Decoder;
+import codificacoes.Encoder;
 
-public class DeltaCodification implements Coder {
+public class DeltaCodification implements Encoder, Decoder {
 
     @Override
     public void decode() {

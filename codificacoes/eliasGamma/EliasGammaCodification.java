@@ -1,8 +1,9 @@
 package codificacoes.eliasGamma;
 
-import codificacoes.Coder;
+import codificacoes.Decoder;
+import codificacoes.Encoder;
 
-public class EliasGammaCodification implements Coder {
+public class EliasGammaCodification implements Encoder, Decoder {
 
     @Override
     public void decode() {

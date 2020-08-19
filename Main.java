@@ -1,5 +1,5 @@
-import codificacoes.Coder;
 import codificacoes.CodingType;
+import codificacoes.Encoder;
 import codificacoes.delta.DeltaCodification;
 import codificacoes.eliasGamma.EliasGammaCodification;
 import codificacoes.fibonacci.FibonacciCodification;
@@ -14,7 +14,7 @@ import static codificacoes.CodingType.*;
 public class Main {
 
     public static void main(String[] args) {
-        Boolean isOn = true;
+        boolean isOn = true;
 
         while (isOn) {
             // escolher função (0-codificar 1-decodificar)
@@ -61,7 +61,7 @@ public class Main {
 
             if (op == 1) {
                 //Decoder decoder = new Decoder(selectedFile);
-                //coder.decode();
+                //decoder.decode();
                 System.out.println("Decoder: " + selectedFile.getPath());
             } else {
                 // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
@@ -74,13 +74,13 @@ public class Main {
                     continue;
                 } else {
                     final CodingType selectedCodingType = getValueByName((String) selectedValue);
-                    Coder coder = null;
+                    Encoder encoder = null;
                     int divisor = 0;
 
                     //Encoder encoder = new Encoder(selectedFile,identifiers.get(selectedValue), divisor);
                     switch (selectedCodingType) {
                         case Golomb -> {
-                            coder = new GolombCodification();
+                            encoder = new GolombCodification();
                             String inputValue = JOptionPane.showInputDialog("Insira o valor do divisor: ");
                             try {
                                 divisor = Integer.parseInt(inputValue);
@@ -88,15 +88,15 @@ public class Main {
                                 //TODO: handle exception
                             }
                         }
-                        case EliasGamma -> coder = new EliasGammaCodification();
-                        case Fibonacci -> coder = new FibonacciCodification();
-                        case Unary -> coder = new UnaryCodification();
-                        case Delta -> coder = new DeltaCodification();
+                        case EliasGamma -> encoder = new EliasGammaCodification();
+                        case Fibonacci -> encoder = new FibonacciCodification();
+                        case Unary -> encoder = new UnaryCodification();
+                        case Delta -> encoder = new DeltaCodification();
                     }
 
                     System.out.println("Encoder: " + selectedFile.getPath() + " codificador: " + selectedCodingType.getIdentifier() + " divisor: " + divisor);
 
-                    coder.encode();
+                    encoder.encode();
                 }
             }
         }

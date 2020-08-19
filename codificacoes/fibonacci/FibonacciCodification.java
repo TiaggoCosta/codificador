@@ -1,8 +1,9 @@
 package codificacoes.fibonacci;
 
-import codificacoes.Coder;
+import codificacoes.Decoder;
+import codificacoes.Encoder;
 
-public class FibonacciCodification implements Coder {
+public class FibonacciCodification implements Encoder, Decoder {
 
     @Override
     public void decode() {
@@ -11,6 +12,6 @@ public class FibonacciCodification implements Coder {
 
     @Override
     public void encode() {
-
+//        byte[] array = Files.readAllBytes();
     }
 }
