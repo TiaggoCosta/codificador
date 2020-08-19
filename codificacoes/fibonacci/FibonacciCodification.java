@@ -12,6 +12,6 @@ public class FibonacciCodification implements Encoder, Decoder {
 
     @Override
     public void encode() {
-
+//        byte[] array = Files.readAllBytes();
     }
 }

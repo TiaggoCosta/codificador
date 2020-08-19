@@ -2,5 +2,5 @@ package codificacoes;
 
 public interface Encoder {
 
-    public void encode();
+    void encode();
 }
