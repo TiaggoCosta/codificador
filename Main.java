@@ -62,7 +62,7 @@ public class Main {
             if (op == 1) {
                 //Decoder decoder = new Decoder(selectedFile);
                 //decoder.decode();
-                System.out.println("Decoder: " + selectedFile.getPath());
+                System.out.println("Decodificação do arquivo: " + selectedFile.getPath());
             } else {
                 // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
                 Object[] items = {Golomb.getName(), EliasGamma.getName(), Fibonacci.getName(), Unary.getName(), Delta.getName()};
@@ -102,7 +102,9 @@ public class Main {
                             break;
                     }
 
-                    System.out.println("Encoder: " + selectedFile.getPath() + " codificador: " + selectedCodingType.getIdentifier() + " divisor: " + divisor);
+                    System.out.println("Codificação do arquivo: " + selectedFile.getPath());
+                    System.out.println("Codificador: " + selectedCodingType.getName());
+                    System.out.println("Divisor: " + divisor);
 
                     encoder.encode();
                 }
