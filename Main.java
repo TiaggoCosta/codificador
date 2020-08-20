@@ -130,6 +130,7 @@ public class Main {
                         int extIndex = filePath.lastIndexOf(".");
                         String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
                         Files.write(Paths.get(newPath), result);
+                        JOptionPane.showMessageDialog(null, "Codificação concluída com sucesso");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
