@@ -17,6 +17,11 @@ public class GolombCodification implements Encoder, Decoder {
     }
 
     @Override
+    public String encodeChar(char[] data) {
+        return "";
+    }
+
+    @Override
     public byte[] encode(byte [] data) {
         return data;
     }

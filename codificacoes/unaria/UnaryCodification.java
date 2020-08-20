@@ -15,12 +15,16 @@ public class UnaryCodification implements Encoder, Decoder {
 
     @Override
     public byte[] encode(byte [] data) {
+        return data;
+    }
+    @Override
+    public String encodeChar(char[] data) {
         String s = "abc";
         int asc2;
         String codification = "";
 
         for(int i = 0; i < s.length(); i++){
-            asc2 = s.charAt(i);
+            asc2 = (int)data[i];
             codification = codification.concat(Stream.generate(() -> "0")
                     .limit(asc2)
                     .collect(Collectors.joining()));
@@ -29,6 +33,6 @@ public class UnaryCodification implements Encoder, Decoder {
         }
 
         System.out.println("the codification is: " + codification);
-        return data;
+        return codification;
     }
 }
