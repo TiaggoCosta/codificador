@@ -13,6 +13,11 @@ public class FibonacciCodification implements Encoder, Decoder {
     }
 
     @Override
+    public String encodeChar(char[] data) {
+        return "";
+    }
+
+    @Override
     public byte[] encode(byte [] data) {
         ArrayList<Byte> result = new ArrayList<>();
         for (byte b : data) {

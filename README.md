@@ -5,6 +5,7 @@
 <p>👩‍🎓 Karolina Pacheco</p>
 <p>👩‍🎓 Nadine Schneider</p>
 <p>👨‍🎓 Tiago Costa</p>
+<p>👨‍🎓 Rafael Stefani Baptista</p>
 <hr>
 <h3>Objetivo do T1:</h3>
 
@@ -29,8 +30,8 @@ A estrutura do processo é a seguinte: a partir da leitura do arquivo original, 
 <h4>🛠 TBD ⚒</h4>
 
 <p>(✔) Menu</p>
-<p>Leitura</p>
-<p>Escrita</p>
+<p>(✔) Leitura</p>
+<p>(✔) Escrita</p>
 <p>📒Unária</p> 
 <p>📙Delta</p>
 <p>📕Fibonacci</p>

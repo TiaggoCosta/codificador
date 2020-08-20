@@ -8,6 +8,7 @@ import codificacoes.unaria.UnaryCodification;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -123,13 +124,18 @@ public class Main {
                     System.out.println("Codificador: " + selectedCodingType.getName());
                     //TODO: class or method to read and write the files
                     try {
+                        FileReader fr = new FileReader(selectedFile);
+                        char[] chars = new char[(int)selectedFile.length()];
+                        fr.read(chars);
+
                         byte[] data = Files.readAllBytes(selectedFile.toPath());
-                        byte[] result = encoder.encode(data);
+                        String result = encoder.encodeChar(chars);
                         final String ext = ".cod";
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");
                         String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                        Files.write(Paths.get(newPath), result);
+                        System.out.println("resultado: "+result);
+                        //Files.write(Paths.get(newPath), result);
                         JOptionPane.showMessageDialog(null, "Codificação concluída com sucesso");
                     } catch (IOException e) {
                         e.printStackTrace();
