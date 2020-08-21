@@ -21,9 +21,10 @@ public class FibonacciCodification implements Encoder, Decoder {
     @Override
     public byte[] encode(byte [] data) {
         ArrayList<Byte> resultBytes = new ArrayList<>();
+        byte resultByte = 0;
+        int bitPosition = 0;
+
         for (byte b : data) {
-            byte resultByte = 0;
-            int bitPosition = 0;
             int value = Byte.toUnsignedInt(b);
             ArrayList<Integer> fibonacciNumbers = getFibonacciNumbers(value);
             fibonacciNumbers.sort(Collections.reverseOrder());
@@ -43,7 +44,11 @@ public class FibonacciCodification implements Encoder, Decoder {
 
                 bitPosition++;
             }
+
             //resultByte add stopbit (1)
+        }
+
+        if (bitPosition > 0) {
             resultBytes.add(resultByte);
         }
 
