@@ -38,14 +38,24 @@ public class FibonacciCodification implements Encoder, Decoder {
 
                 if (value - i >= 0) {
                     //resultByte add 1
+                    resultByte = (byte) (resultByte | (1<<bitPosition));
                 } else {
                     //resultByte add 0
+                    resultByte = (byte)(resultByte<<1);
                 }
 
                 bitPosition++;
             }
 
+            if (bitPosition >= 7) {
+                resultBytes.add(resultByte);
+                resultByte = 0;
+                bitPosition = 0;
+            }
+
             //resultByte add stopbit (1)
+            resultByte = (byte) (resultByte | (1<<bitPosition));
+            bitPosition++;
         }
 
         if (bitPosition > 0) {
