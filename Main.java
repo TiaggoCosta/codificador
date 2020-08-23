@@ -8,10 +8,10 @@ import codificacoes.unaria.UnaryCodification;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import static codificacoes.CodingType.*;
 
@@ -130,8 +130,8 @@ public class Main {
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");
                         String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                        System.out.println("resultado: "+result);
-                        //Files.write(Paths.get(newPath), result);
+                        System.out.println("resultado: " + Arrays.toString(result));
+                        Files.write(Paths.get(newPath), result);
                         JOptionPane.showMessageDialog(null, "Codificação concluída com sucesso");
                     } catch (IOException e) {
                         e.printStackTrace();
