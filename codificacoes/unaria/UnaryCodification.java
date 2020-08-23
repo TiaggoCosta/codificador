@@ -4,14 +4,35 @@ import codificacoes.Decoder;
 import codificacoes.Encoder;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.BitSet;
 
 public class UnaryCodification implements Encoder, Decoder {
 
     @Override
-    public void decode() {
+    public void decode(byte[] data) {
+        ArrayList<Integer> decoded = new ArrayList<>();
+        int count = 0;
+        for (byte b : data) {
+            BitSet bits = BitSet.valueOf(new long[]{b});
+            for (int i = 7; i >= 0; i--) {
+                System.out.println("Bit on index: " + i + " = " + bits.get(i));
+                if (bits.get(i) == false) {
+                    System.out.println("Increasing count");
+                    count++;
+                    System.out.println("count is now: " + count);
+                } else {
+                    System.out.println("Found bit 1, adding to decoded and reseting count");
+                    decoded.add(Integer.valueOf(count));
+                    System.out.println("Value added to decoded is: " + count);
+                    count = 0;
+                }
+            }
+        }
 
+        for (int i = 0; i < decoded.size(); i++) {
+            System.out.println("decoded: " + decoded.get(i));
+            System.out.println("Back to string: " + Integer.toString(decoded.get(i)));
+        }
     }
 
     @Override

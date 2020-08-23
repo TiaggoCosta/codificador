@@ -1,4 +1,5 @@
 import codificacoes.CodingType;
+import codificacoes.Decoder;
 import codificacoes.Encoder;
 import codificacoes.delta.DeltaCodification;
 import codificacoes.eliasGamma.EliasGammaCodification;
@@ -64,8 +65,17 @@ public class Main {
             }
 
             if (op == 1) {
-                //Decoder decoder = new Decoder(selectedFile);
-                //decoder.decode();
+                Decoder decoder = new UnaryCodification();
+
+                byte[] data = {0,0,0,0,64,0,0,0,16};
+                for(byte b1: data){
+                    System.out.println("byte to decode: " + b1);
+                }
+
+                decoder.decode(data);
+
+                JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
+
                 System.out.println("Decodificação do arquivo: " + selectedFile.getPath());
             } else {
                 // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)

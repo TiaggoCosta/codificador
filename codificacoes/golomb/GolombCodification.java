@@ -12,7 +12,7 @@ public class GolombCodification implements Encoder, Decoder {
     }
 
     @Override
-    public void decode() {
+    public void decode(byte[] data) {
 
     }
 

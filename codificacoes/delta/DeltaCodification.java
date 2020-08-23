@@ -6,7 +6,7 @@ import codificacoes.Encoder;
 public class DeltaCodification implements Encoder, Decoder {
 
     @Override
-    public void decode() {
+    public void decode(byte[] data) {
 
     }
 
