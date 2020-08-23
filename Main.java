@@ -124,12 +124,8 @@ public class Main {
                     System.out.println("Codificador: " + selectedCodingType.getName());
                     //TODO: class or method to read and write the files
                     try {
-                        FileReader fr = new FileReader(selectedFile);
-                        char[] chars = new char[(int)selectedFile.length()];
-                        fr.read(chars);
-
                         byte[] data = Files.readAllBytes(selectedFile.toPath());
-                        String result = encoder.encodeChar(chars);
+                        byte[] result = encoder.encode(data);
                         final String ext = ".cod";
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");
