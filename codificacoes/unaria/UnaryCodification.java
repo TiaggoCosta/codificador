@@ -58,23 +58,4 @@ public class UnaryCodification implements Encoder, Decoder {
 
         return result;
     }
-
-    @Override
-    public String encodeChar(char[] data) {
-        String s = "abc";
-        int asc2;
-        String codification = "";
-
-        for(int i = 0; i < s.length(); i++){
-            asc2 = (int)data[i];
-            codification = codification.concat(Stream.generate(() -> "0")
-                    .limit(asc2)
-                    .collect(Collectors.joining()));
-
-            codification = codification.concat("1");
-        }
-
-        System.out.println("the codification is: " + codification);
-        return codification;
-    }
 }
