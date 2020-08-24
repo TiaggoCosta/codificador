@@ -30,12 +30,15 @@ public class UnaryCodification implements Encoder, Decoder {
             }
         }
 
+        StringBuilder builder = new StringBuilder("");
         for(int i = 0; i < decoded.size(); i++){
             System.out.println("decoded: " + decoded.get(i));
             System.out.println("Back to string: " + Integer.toString(decoded.get(i)));
             int ascii = decoded.get(i);
             char ch = (char) ascii;
+            builder.append(ch);
         }
+        System.out.println(builder);
     }
 
     @Override
