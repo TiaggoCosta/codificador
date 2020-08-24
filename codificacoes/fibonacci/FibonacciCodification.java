@@ -22,7 +22,7 @@ public class FibonacciCodification implements Encoder, Decoder {
     public byte[] encode(byte [] data) {
         ArrayList<Byte> resultBytes = new ArrayList<>();
         byte resultByte = 0;
-        int bitPosition = 0;
+        int bitPosition = 7;
 
         for (byte b : data) {
             int value = Byte.toUnsignedInt(b);
@@ -30,37 +30,38 @@ public class FibonacciCodification implements Encoder, Decoder {
             ArrayList<Integer> fibonacciNumbers = getFibonacciNumbers(value);
             fibonacciNumbers.sort(Collections.reverseOrder());
 
-            for (Integer i : fibonacciNumbers) {
-                if (bitPosition >= 7) {
+            for (Integer fibonacciNumber : fibonacciNumbers) {
+                if (bitPosition <= 0) {
                     resultBytes.add(resultByte);
                     resultByte = 0;
-                    bitPosition = 0;
+                    bitPosition = 7;
                 }
 
-                if (rest - i >= 0) {
-                    rest -= i;
+                if (rest - fibonacciNumber >= 0) {
+                    rest -= fibonacciNumber;
                     //resultByte add 1
-                    resultByte = (byte) (resultByte | (1<<bitPosition));
-                } else {
-                    //resultByte add 0
-                    resultByte = (byte)(resultByte<<1);
+                    resultByte = (byte) (resultByte | ((byte) Math.pow(2, bitPosition)));
                 }
 
-                bitPosition++;
+                bitPosition--;
+
+                if (rest == 0) {
+                   break;
+                }
             }
 
-            if (bitPosition >= 7) {
+            if (bitPosition <= 0) {
                 resultBytes.add(resultByte);
                 resultByte = 0;
-                bitPosition = 0;
+                bitPosition = 7;
             }
 
             //resultByte add stopbit (1)
-            resultByte = (byte) (resultByte | (1<<bitPosition));
-            bitPosition++;
+            resultByte = (byte) (resultByte | ((byte) Math.pow(2, bitPosition)));
+            bitPosition--;
         }
 
-        if (bitPosition > 0) {
+        if (resultByte != (byte)0) {
             resultBytes.add(resultByte);
         }
 
