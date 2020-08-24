@@ -67,16 +67,24 @@ public class Main {
             if (op == 1) {
                 Decoder decoder = new UnaryCodification();
 
-                byte[] data = {0,0,0,0,64,0,0,0,16};
-                for(byte b1: data){
-                    System.out.println("byte to decode: " + b1);
+                try {
+                    byte[] data = Files.readAllBytes(selectedFile.toPath());
+
+                    byte[] hardCoded = {0,0,0,0,64,0,0,0,16};
+                    for(byte b1: hardCoded){
+                        System.out.println("byte to decode: " + b1);
+                    }
+
+                    /* byte[] result = */ decoder.decode(hardCoded);
+                    final String ext = ".dec";
+                    String filePath = selectedFile.getPath();
+                    int extIndex = filePath.lastIndexOf(".");
+                    String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
+                    //System.out.println("resultado: " + Arrays.toString(result));
+                    JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
-                decoder.decode(data);
-
-                JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
-
-                System.out.println("Decodificação do arquivo: " + selectedFile.getPath());
             } else {
                 // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
                 Object[] items = {Golomb.getName(), EliasGamma.getName(), Fibonacci.getName(), Unary.getName(), Delta.getName()};
