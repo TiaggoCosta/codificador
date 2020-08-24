@@ -1,4 +1,5 @@
 import codificacoes.CodingType;
+import codificacoes.Decoder;
 import codificacoes.Encoder;
 import codificacoes.delta.DeltaCodification;
 import codificacoes.eliasGamma.EliasGammaCodification;
@@ -8,10 +9,10 @@ import codificacoes.unaria.UnaryCodification;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import static codificacoes.CodingType.*;
 
@@ -64,8 +65,17 @@ public class Main {
             }
 
             if (op == 1) {
-                //Decoder decoder = new Decoder(selectedFile);
-                //decoder.decode();
+                Decoder decoder = new UnaryCodification();
+
+                byte[] data = {0,0,0,0,64,0,0,0,16};
+                for(byte b1: data){
+                    System.out.println("byte to decode: " + b1);
+                }
+
+                decoder.decode(data);
+
+                JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
+
                 System.out.println("Decodificação do arquivo: " + selectedFile.getPath());
             } else {
                 // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
@@ -124,18 +134,14 @@ public class Main {
                     System.out.println("Codificador: " + selectedCodingType.getName());
                     //TODO: class or method to read and write the files
                     try {
-                        FileReader fr = new FileReader(selectedFile);
-                        char[] chars = new char[(int)selectedFile.length()];
-                        fr.read(chars);
-
                         byte[] data = Files.readAllBytes(selectedFile.toPath());
-                        String result = encoder.encodeChar(chars);
+                        byte[] result = encoder.encode(data);
                         final String ext = ".cod";
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");
                         String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                        System.out.println("resultado: "+result);
-                        //Files.write(Paths.get(newPath), result);
+                        System.out.println("resultado: " + Arrays.toString(result));
+                        Files.write(Paths.get(newPath), result);
                         JOptionPane.showMessageDialog(null, "Codificação concluída com sucesso");
                     } catch (IOException e) {
                         e.printStackTrace();

@@ -37,3 +37,8 @@ A estrutura do processo é a seguinte: a partir da leitura do arquivo original, 
 <p>📕Fibonacci</p>
 <p>📗Elias-Gamma</p>
 <p>📘Golomb</p>
+
+<hr>
+<h4>Referências</h4>
+https://www.geeksforgeeks.org/bitwise-operators-in-java/
+<hr>

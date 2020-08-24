@@ -9,13 +9,8 @@ import java.util.Collections;
 public class FibonacciCodification implements Encoder, Decoder {
 
     @Override
-    public void decode() {
+    public void decode(byte[] data) {
 
-    }
-
-    @Override
-    public String encodeChar(char[] data) {
-        return "";
     }
 
     @Override

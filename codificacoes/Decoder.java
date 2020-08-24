@@ -2,5 +2,5 @@ package codificacoes;
 
 public interface Decoder {
 
-    void decode();
+    void decode(byte[] data);
 }
