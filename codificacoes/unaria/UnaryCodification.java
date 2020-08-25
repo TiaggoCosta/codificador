@@ -10,7 +10,7 @@ import java.lang.*;
 public class UnaryCodification implements Encoder, Decoder {
 
     @Override
-    public void decode(byte[] data) {
+    public String decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
         int count = 0;
         for(byte b : data) {
@@ -38,7 +38,8 @@ public class UnaryCodification implements Encoder, Decoder {
             char ch = (char) ascii;
             builder.append(ch);
         }
-        System.out.println(builder);
+        System.out.println("returning: " + builder);
+        return builder;
     }
 
     @Override

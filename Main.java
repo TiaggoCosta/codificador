@@ -75,12 +75,12 @@ public class Main {
                         System.out.println("byte to decode: " + b1);
                     }
 
-                    /* byte[] result = */ decoder.decode(hardCoded);
+                    String result = decoder.decode(hardCoded);
                     final String ext = ".dec";
                     String filePath = selectedFile.getPath();
                     int extIndex = filePath.lastIndexOf(".");
                     String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                    //System.out.println("resultado: " + Arrays.toString(result));
+                    System.out.println("resultado: " + result);
                     JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -12,8 +12,8 @@ public class GolombCodification implements Encoder, Decoder {
     }
 
     @Override
-    public void decode(byte[] data) {
-
+    public String decode(byte[] data) {
+        return "Implementar";
     }
 
     @Override
