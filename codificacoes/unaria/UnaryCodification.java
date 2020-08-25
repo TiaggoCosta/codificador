@@ -4,8 +4,7 @@ import codificacoes.Decoder;
 import codificacoes.Encoder;
 
 import java.util.ArrayList;
-import java.util.BitSet;
-import java.lang.*; 
+import java.util.BitSet; 
 
 public class UnaryCodification implements Encoder, Decoder {
 
@@ -39,7 +38,7 @@ public class UnaryCodification implements Encoder, Decoder {
             builder.append(ch);
         }
         System.out.println("returning: " + builder);
-        return builder;
+        return builder.toString();
     }
 
     @Override
