@@ -49,6 +49,7 @@ public class Main {
             // seleção de arquivo
             final JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(false);
+            fileChooser.setCurrentDirectory(new java.io.File("./arquivos"));
 
             File selectedFile = null;
             int retVal = fileChooser.showOpenDialog(null);
@@ -70,12 +71,11 @@ public class Main {
                 try {
                     byte[] data = Files.readAllBytes(selectedFile.toPath());
 
-                    byte[] hardCoded = {0,0,0,0,64,0,0,0,16};
-                    for(byte b1: hardCoded){
+                    for(byte b1: data){
                         System.out.println("byte to decode: " + b1);
                     }
 
-                    String result = decoder.decode(hardCoded);
+                    String result = decoder.decode(data);
                     final String ext = ".dec";
                     String filePath = selectedFile.getPath();
                     int extIndex = filePath.lastIndexOf(".");
