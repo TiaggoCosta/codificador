@@ -53,7 +53,9 @@ public class Main {
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setCurrentDirectory(new java.io.File("./arquivos"));
             if(op == 1) {
-                fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("*.cod", "cod"));
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("*.cod", "cod");
+                fileChooser.setFileFilter(filter);
+                fileChooser.addChoosableFileFilter(filter);
             }
             File selectedFile = null;
             int retVal = fileChooser.showOpenDialog(null);
@@ -61,8 +63,8 @@ public class Main {
                 if(op == 1) {
                     while (retVal == JFileChooser.APPROVE_OPTION && !fileChooser.getSelectedFile().getName().endsWith(".cod")) {
                         JOptionPane.showMessageDialog(null, "O arquivo "
-                        + fileChooser.getSelectedFile() + " não é um arquivo codificado!",
-                        "Open Error", JOptionPane.ERROR_MESSAGE);
+                        + fileChooser.getSelectedFile().getName() + " não é um arquivo codificado!",
+                        "Erro de compatibilidade", JOptionPane.ERROR_MESSAGE);
                         retVal = fileChooser.showOpenDialog(null);
                     }
                 }
