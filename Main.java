@@ -7,6 +7,7 @@ import codificacoes.fibonacci.FibonacciCodification;
 import codificacoes.golomb.GolombCodification;
 import codificacoes.unaria.UnaryCodification;
 
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -51,10 +52,20 @@ public class Main {
             final JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setCurrentDirectory(new java.io.File("./arquivos"));
-
+            if(op == 1) {
+                fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("*.cod", "cod"));
+            }
             File selectedFile = null;
             int retVal = fileChooser.showOpenDialog(null);
             if (retVal == JFileChooser.APPROVE_OPTION) {
+                if(op == 1) {
+                    while (retVal == JFileChooser.APPROVE_OPTION && !fileChooser.getSelectedFile().getName().endsWith(".cod")) {
+                        JOptionPane.showMessageDialog(null, "O arquivo "
+                        + fileChooser.getSelectedFile() + " não é um arquivo codificado!",
+                        "Open Error", JOptionPane.ERROR_MESSAGE);
+                        retVal = fileChooser.showOpenDialog(null);
+                    }
+                }
                 selectedFile = fileChooser.getSelectedFile();
                 JOptionPane.showMessageDialog(null, selectedFile.getName());
             }
