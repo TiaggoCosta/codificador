@@ -9,6 +9,7 @@ import codificacoes.unaria.UnaryCodification;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -80,7 +81,9 @@ public class Main {
                     String filePath = selectedFile.getPath();
                     int extIndex = filePath.lastIndexOf(".");
                     String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                    System.out.println("resultado: " + result);
+                    FileWriter myWriter = new FileWriter(newPath);
+                    myWriter.write(result);
+                    myWriter.close();
                     JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
                 } catch (IOException e) {
                     e.printStackTrace();
