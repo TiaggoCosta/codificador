@@ -80,24 +80,52 @@ public class Main {
             }
 
             if (op == 1) {
-                Decoder decoder = new UnaryCodification();
-
                 try {
+                    Decoder decoder = null;
                     byte[] data = Files.readAllBytes(selectedFile.toPath());
-
-                    for(byte b1: data){
-                        System.out.println("byte to decode: " + b1);
+                    System.out.println("decoder: " + data[0]);
+                    switch (data[0]) {
+                        case 0:
+                            System.out.println("Decoder Golomb, divisor: " + data[1]);
+                            decoder = new GolombCodification(data[1]);
+                            break;
+                    
+                        case 1:
+                            System.out.println("Decoder Elias-Gamma");
+                            decoder = new EliasGammaCodification();
+                            break;
+                    
+                        case 2:
+                            System.out.println("Decoder Fibonacci");
+                            decoder = new FibonacciCodification();
+                            break;
+                    
+                        case 3:
+                            System.out.println("Decoder Unária");
+                            decoder = new UnaryCodification();
+                            break;
+                    
+                        case 4:
+                            System.out.println("Decoder Delta");
+                            decoder = new DeltaCodification();
+                            break;
+                    
+                        default:
+                            System.out.println("Something went wrong! decoder: " + data[0]);
+                            break;
                     }
 
-                    String result = decoder.decode(data);
-                    final String ext = ".dec";
-                    String filePath = selectedFile.getPath();
-                    int extIndex = filePath.lastIndexOf(".");
-                    String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                    FileWriter myWriter = new FileWriter(newPath);
-                    myWriter.write(result);
-                    myWriter.close();
-                    JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
+                    if(decoder != null){
+                        String result = decoder.decode(data);
+                        final String ext = ".dec";
+                        String filePath = selectedFile.getPath();
+                        int extIndex = filePath.lastIndexOf(".");
+                        String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
+                        FileWriter myWriter = new FileWriter(newPath);
+                        myWriter.write(result);
+                        myWriter.close();
+                        JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
