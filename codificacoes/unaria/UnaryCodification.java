@@ -47,6 +47,8 @@ public class UnaryCodification implements Encoder, Decoder {
         byte resultByte = 0;
         int bitPosition = 0;
 
+        addHeaderValues(resultBytes);
+
         for(byte b : data) {
             for(int i = 0; i < b; i++) {
                 if (bitPosition >= 8) {
@@ -84,5 +86,10 @@ public class UnaryCodification implements Encoder, Decoder {
         }
 
         return result;
+    }
+
+    private void addHeaderValues(ArrayList<Byte> resultBytes){
+        resultBytes.add((byte) 3);
+        resultBytes.add((byte) 0);
     }
 }
