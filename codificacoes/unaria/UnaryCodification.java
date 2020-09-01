@@ -12,8 +12,9 @@ public class UnaryCodification implements Encoder, Decoder {
     public String decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
         int count = 0;
-        for(byte b : data) {
-            BitSet bits = BitSet.valueOf(new long[] { b });
+
+        for(int index = 2; index < data.length; index++) {
+            BitSet bits = BitSet.valueOf(new long[] { data[index] });
             for(int i = 7; i >= 0; i--){
                 System.out.println("Bit on index: "+i+" = "+ bits.get(i));
                 if(bits.get(i) == false){

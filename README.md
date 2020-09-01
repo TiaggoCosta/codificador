@@ -32,7 +32,7 @@ A estrutura do processo é a seguinte: a partir da leitura do arquivo original, 
 <p>(✔) Menu</p>
 <p>(✔) Leitura</p>
 <p>(✔) Escrita</p>
-<p>📒Unária</p> 
+<p>(✔) Unária</p> 
 <p>📙Delta</p>
 <p>📕Fibonacci</p>
 <p>📗Elias-Gamma</p>
