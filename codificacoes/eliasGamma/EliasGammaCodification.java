@@ -24,7 +24,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
         int bitPosition = 0;
 
         addHeaderValues(resultBytes);
-
+        ArrayList<Integer> bits = new ArrayList<>();
         for(byte b : data) {
             // b = valor inteiro do char
             System.out.println("valor char = " + b);
@@ -32,6 +32,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
             System.out.println("tamanho do byte = " + Integer.toBinaryString(b).length());
             // tamanho do byte = k
             int byteLength = Integer.toBinaryString(b).length();
+            
             // escreve k-1 zeros
             for (int i = 0; i < byteLength-1; i++) {
                 if (bitPosition >= 8) {
@@ -39,8 +40,10 @@ public class EliasGammaCodification implements Encoder, Decoder {
                     resultBytes.add(resultByte);
                     resultByte = 0;
                     bitPosition = 0;
+                } else {
+                    bits.add(0);
+                    bitPosition++;
                 }
-                bitPosition++;
             }
             // escreve 1
             if (bitPosition >= 8) {
@@ -52,6 +55,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
             int valToShift = 7-bitPosition;
             resultByte = (byte) (resultByte | (1<<valToShift));
             bitPosition++;
+            bits.add(1);
             // escreve binario(b)
             for (int i = 0; i < byteLength; i++) {
                 if (bitPosition >= 8) {
@@ -61,15 +65,36 @@ public class EliasGammaCodification implements Encoder, Decoder {
                     bitPosition = 0;
                 }
 
+                String bitsOfRest = Integer.toBinaryString(b);
+                if(bitsOfRest.charAt(i) == '1') {
+                    valToShift = 7-bitPosition;
+                    resultByte = (byte) (resultByte | (1<<valToShift));
+                    bits.add(1);
+                } else {
+                    bits.add(0);
+                }
+
                 bitPosition++;
             }
         }
+
+        //add residual bits of non complete byte
+        if (bitPosition > 0) {
+            resultBytes.add(resultByte);
+        }
+
+        byte[] result = new byte[resultBytes.size()];
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = resultBytes.get(i);
+        }
+
         System.out.println(resultBytes.toString());
         for(byte b : resultBytes) {
             System.out.println("byte = " + Integer.toBinaryString(b));
         }
-
-        return data;
+        System.out.println(bits.toString());
+        return result;
     }
 
     private void addHeaderValues(ArrayList<Byte> resultBytes){
