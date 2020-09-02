@@ -91,8 +91,7 @@ public class GolombCodification implements Encoder, Decoder {
 
         return result;
     }
-
-    //https://www.techiedelight.com/calculate-log-base-2-in-java/
+    
     private int calculateLog2(int value){
         return (int) (Math.log(value) / Math.log(2) + 1e-10);
     }
