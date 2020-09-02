@@ -51,6 +51,7 @@ public class UnaryCodification implements Encoder, Decoder {
         addHeaderValues(resultBytes);
 
         for(byte b : data) {
+            //add value size in zeroes
             for(int i = 0; i < b; i++) {
                 if (bitPosition >= 8) {
                     //byte is complete, add to array and start over
