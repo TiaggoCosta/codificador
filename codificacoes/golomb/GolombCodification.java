@@ -63,10 +63,18 @@ public class GolombCodification implements Encoder, Decoder {
             //add rest in binary
             BitSet bitsOfRest = BitSet.valueOf(new long[] { rest });
             for(int i = suffixSize-1; i >= 0; i--){
+                if (bitPosition >= 8) {
+                    //byte is complete, add to array and start over
+                    resultBytes.add(resultByte);
+                    resultByte = 0;
+                    bitPosition = 0;
+                }
+
                 if(bitsOfRest.get(i) == true) {
                     valToShift = 7-bitPosition;
                     resultByte = (byte) (resultByte | (1<<valToShift));
                 }
+
                 bitPosition++;
             }
         }
