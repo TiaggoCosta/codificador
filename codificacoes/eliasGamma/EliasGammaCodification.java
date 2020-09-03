@@ -40,10 +40,9 @@ public class EliasGammaCodification implements Encoder, Decoder {
                     resultBytes.add(resultByte);
                     resultByte = 0;
                     bitPosition = 0;
-                } else {
-                    bits.add(0);
-                    bitPosition++;
-                }
+                } 
+                bits.add(0);
+                bitPosition++;
             }
             // escreve 1
             if (bitPosition >= 8) {
