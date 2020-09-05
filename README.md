@@ -32,7 +32,7 @@ A estrutura do processo é a seguinte: a partir da leitura do arquivo original, 
 <p>(✔) Menu</p>
 <p>(✔) Leitura</p>
 <p>(✔) Escrita</p>
-<p>📒Unária</p> 
+<p>(✔) Unária</p> 
 <p>📙Delta</p>
 <p>📕Fibonacci</p>
 <p>📗Elias-Gamma</p>
@@ -40,5 +40,7 @@ A estrutura do processo é a seguinte: a partir da leitura do arquivo original, 
 
 <hr>
 <h4>Referências</h4>
-https://www.geeksforgeeks.org/bitwise-operators-in-java/
+<p>https://www.geeksforgeeks.org/bitwise-operators-in-java/</p>
+<p>https://www.dei.isep.ipp.pt/~asc/tiny-papers/java-unsigned-bytes.pdf</p>
+<p>https://www.techiedelight.com/calculate-log-base-2-in-java/</p>
 <hr>

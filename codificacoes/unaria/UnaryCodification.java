@@ -4,16 +4,17 @@ import codificacoes.Decoder;
 import codificacoes.Encoder;
 
 import java.util.ArrayList;
-import java.util.BitSet;
+import java.util.BitSet; 
 
 public class UnaryCodification implements Encoder, Decoder {
 
     @Override
-    public void decode(byte[] data) {
+    public String decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
         int count = 0;
-        for(byte b : data) {
-            BitSet bits = BitSet.valueOf(new long[] { b });
+
+        for(int index = 2; index < data.length; index++) {
+            BitSet bits = BitSet.valueOf(new long[] { data[index] });
             for(int i = 7; i >= 0; i--){
                 System.out.println("Bit on index: "+i+" = "+ bits.get(i));
                 if(bits.get(i) == false){
@@ -29,10 +30,16 @@ public class UnaryCodification implements Encoder, Decoder {
             }
         }
 
+        StringBuilder builder = new StringBuilder("");
         for(int i = 0; i < decoded.size(); i++){
             System.out.println("decoded: " + decoded.get(i));
             System.out.println("Back to string: " + Integer.toString(decoded.get(i)));
+            int ascii = decoded.get(i);
+            char ch = (char) ascii;
+            builder.append(ch);
         }
+        System.out.println("returning: " + builder);
+        return builder.toString();
     }
 
     @Override
@@ -41,7 +48,10 @@ public class UnaryCodification implements Encoder, Decoder {
         byte resultByte = 0;
         int bitPosition = 0;
 
+        addHeaderValues(resultBytes);
+
         for(byte b : data) {
+            //add value size in zeroes
             for(int i = 0; i < b; i++) {
                 if (bitPosition >= 8) {
                     //byte is complete, add to array and start over
@@ -78,5 +88,10 @@ public class UnaryCodification implements Encoder, Decoder {
         }
 
         return result;
+    }
+
+    private void addHeaderValues(ArrayList<Byte> resultBytes){
+        resultBytes.add((byte) 3);
+        resultBytes.add((byte) 0);
     }
 }

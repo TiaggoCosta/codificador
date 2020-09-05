@@ -7,8 +7,10 @@ import codificacoes.fibonacci.FibonacciCodification;
 import codificacoes.golomb.GolombCodification;
 import codificacoes.unaria.UnaryCodification;
 
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,10 +51,23 @@ public class Main {
             // seleção de arquivo
             final JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(false);
-
+            fileChooser.setCurrentDirectory(new java.io.File("./arquivos"));
+            if(op == 1) {
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("*.cod", "cod");
+                fileChooser.setFileFilter(filter);
+                fileChooser.addChoosableFileFilter(filter);
+            }
             File selectedFile = null;
             int retVal = fileChooser.showOpenDialog(null);
             if (retVal == JFileChooser.APPROVE_OPTION) {
+                if(op == 1) {
+                    while (retVal == JFileChooser.APPROVE_OPTION && !fileChooser.getSelectedFile().getName().endsWith(".cod")) {
+                        JOptionPane.showMessageDialog(null, "O arquivo "
+                        + fileChooser.getSelectedFile().getName() + " não é um arquivo codificado!",
+                        "Erro de compatibilidade", JOptionPane.ERROR_MESSAGE);
+                        retVal = fileChooser.showOpenDialog(null);
+                    }
+                }
                 selectedFile = fileChooser.getSelectedFile();
                 JOptionPane.showMessageDialog(null, selectedFile.getName());
             }
@@ -65,18 +80,55 @@ public class Main {
             }
 
             if (op == 1) {
-                Decoder decoder = new UnaryCodification();
+                try {
+                    Decoder decoder = null;
+                    byte[] data = Files.readAllBytes(selectedFile.toPath());
+                    System.out.println("decoder: " + data[0]);
+                    switch (data[0]) {
+                        case 0:
+                            System.out.println("Decoder Golomb, divisor: " + data[1]);
+                            decoder = new GolombCodification(data[1]);
+                            break;
+                    
+                        case 1:
+                            System.out.println("Decoder Elias-Gamma");
+                            decoder = new EliasGammaCodification();
+                            break;
+                    
+                        case 2:
+                            System.out.println("Decoder Fibonacci");
+                            decoder = new FibonacciCodification();
+                            break;
+                    
+                        case 3:
+                            System.out.println("Decoder Unária");
+                            decoder = new UnaryCodification();
+                            break;
+                    
+                        case 4:
+                            System.out.println("Decoder Delta");
+                            decoder = new DeltaCodification();
+                            break;
+                    
+                        default:
+                            System.out.println("Something went wrong! decoder: " + data[0]);
+                            break;
+                    }
 
-                byte[] data = {0,0,0,0,64,0,0,0,16};
-                for(byte b1: data){
-                    System.out.println("byte to decode: " + b1);
+                    if(decoder != null){
+                        String result = decoder.decode(data);
+                        final String ext = ".dec";
+                        String filePath = selectedFile.getPath();
+                        int extIndex = filePath.lastIndexOf(".");
+                        String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
+                        FileWriter myWriter = new FileWriter(newPath);
+                        myWriter.write(result);
+                        myWriter.close();
+                        JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
-                decoder.decode(data);
-
-                JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
-
-                System.out.println("Decodificação do arquivo: " + selectedFile.getPath());
             } else {
                 // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
                 Object[] items = {Golomb.getName(), EliasGamma.getName(), Fibonacci.getName(), Unary.getName(), Delta.getName()};
