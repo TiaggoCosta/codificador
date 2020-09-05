@@ -148,7 +148,7 @@ public class Main {
                             String inputValue = null;
 
                             while (invalidDivisor) {
-                                inputValue = JOptionPane.showInputDialog("Insira o valor do divisor: ");
+                                inputValue = JOptionPane.showInputDialog("Insira o valor do divisor: (Entre 1 e 255)");
 
                                 if (inputValue == null) {
                                     break;
@@ -158,7 +158,9 @@ public class Main {
                                     int divisor = Integer.parseInt(inputValue);
                                     encoder = new GolombCodification(divisor);
                                     System.out.println("Divisor: " + divisor);
-                                    invalidDivisor = false;
+                                    if(divisor > 0 && divisor < 256) {
+                                        invalidDivisor = false;
+                                    }
                                 } catch (Exception e) {
                                     //TODO: handle exception
                                 }
