@@ -7,8 +7,8 @@ import codificacoes.fibonacci.FibonacciCodification;
 import codificacoes.golomb.GolombCodification;
 import codificacoes.unaria.UnaryCodification;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -47,12 +47,12 @@ public class Main {
                     continue;
                 }
             }
-            
+
             // seleção de arquivo
             final JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setCurrentDirectory(new java.io.File("./arquivos"));
-            if(op == 1) {
+            if (op == 1) {
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("*.cod", "cod");
                 fileChooser.setFileFilter(filter);
                 fileChooser.addChoosableFileFilter(filter);
@@ -60,11 +60,11 @@ public class Main {
             File selectedFile = null;
             int retVal = fileChooser.showOpenDialog(null);
             if (retVal == JFileChooser.APPROVE_OPTION) {
-                if(op == 1) {
+                if (op == 1) {
                     while (retVal == JFileChooser.APPROVE_OPTION && !fileChooser.getSelectedFile().getName().endsWith(".cod")) {
                         JOptionPane.showMessageDialog(null, "O arquivo "
-                        + fileChooser.getSelectedFile().getName() + " não é um arquivo codificado!",
-                        "Erro de compatibilidade", JOptionPane.ERROR_MESSAGE);
+                                        + fileChooser.getSelectedFile().getName() + " não é um arquivo codificado!",
+                                "Erro de compatibilidade", JOptionPane.ERROR_MESSAGE);
                         retVal = fileChooser.showOpenDialog(null);
                     }
                 }
@@ -89,33 +89,33 @@ public class Main {
                             System.out.println("Decoder Golomb, divisor: " + data[1]);
                             decoder = new GolombCodification(data[1]);
                             break;
-                    
+
                         case 1:
                             System.out.println("Decoder Elias-Gamma");
                             decoder = new EliasGammaCodification();
                             break;
-                    
+
                         case 2:
                             System.out.println("Decoder Fibonacci");
                             decoder = new FibonacciCodification();
                             break;
-                    
+
                         case 3:
                             System.out.println("Decoder Unária");
                             decoder = new UnaryCodification();
                             break;
-                    
+
                         case 4:
                             System.out.println("Decoder Delta");
                             decoder = new DeltaCodification();
                             break;
-                    
+
                         default:
                             System.out.println("Something went wrong! decoder: " + data[0]);
                             break;
                     }
 
-                    if(decoder != null){
+                    if (decoder != null) {
                         String result = decoder.decode(data);
                         final String ext = ".dec";
                         String filePath = selectedFile.getPath();
