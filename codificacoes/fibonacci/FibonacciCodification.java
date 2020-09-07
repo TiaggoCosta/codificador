@@ -4,7 +4,6 @@ import codificacoes.Decoder;
 import codificacoes.Encoder;
 
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.Collections;
 
 public class FibonacciCodification implements Encoder, Decoder {
@@ -12,33 +11,44 @@ public class FibonacciCodification implements Encoder, Decoder {
     @Override
     public String decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
-        BitSet bits = BitSet.valueOf(data);
-
         int currentNumber = 1;
         int nextNumber = 2;
-        int count = 0;
 
-        for (int i = 0; i < bits.length(); i++) {
-            boolean bit = bits.get(i);
-            if (!bits.get(i - 1) || !bits.get(i)) {
-                currentNumber = 1;
-                nextNumber = 2;
-                decoded.add(count);
-                count = 0;
-            }
+        int decodeValue = 0;
 
-            System.out.println("Bit on index: " + i + " = " + bits.get(i));
+        int bitPosition = 7;
+        for (int bytePosition = 0; bytePosition < data.length;) {
+//            int unsignedValue = data[bytePosition] & 0xFF;
+            boolean bit = (data[bytePosition] & (1 << bitPosition)) > 0;
+            boolean nextBit = (data[bytePosition] & (1 << (bitPosition - 1 < 0 ? 7 : (bitPosition - 1)))) > 0;
+
+            System.out.println("Bit on index: " + bitPosition + " = " + bit);
             System.out.println("Value: " + currentNumber);
-            if (bits.get(i)) {
-                System.out.println("Total: " + count + " + " + currentNumber);
-                count += currentNumber;
-                System.out.println("Total: " + count);
+            if (bit) {
+                System.out.println("Total: " + decodeValue + " + " + currentNumber);
+                decodeValue += currentNumber;
+                System.out.println("Total: " + decodeValue);
             }
 
             int temp = currentNumber;
             currentNumber = nextNumber;
             nextNumber = temp + nextNumber;
-            i++;
+
+            bitPosition--;
+
+            if (bit && nextBit) {
+                currentNumber = 1;
+                nextNumber = 2;
+                decoded.add(decodeValue);
+                decodeValue = 0;
+                //pass stop bit
+                bitPosition--;
+            }
+
+            if (bitPosition < 0) {
+                bitPosition = 7 + bitPosition + 1;
+                bytePosition++;
+            }
         }
 
         StringBuilder result = new StringBuilder();
