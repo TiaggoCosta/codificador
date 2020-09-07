@@ -10,21 +10,16 @@ public class UnaryCodification implements Encoder, Decoder {
 
     @Override
     public byte[] decode(byte[] data) {
-        ArrayList<Integer> decoded = new ArrayList<>();
+        ArrayList<Byte> decoded = new ArrayList<>();
         int count = 0;
 
         for(int index = 2; index < data.length; index++) {
             BitSet bits = BitSet.valueOf(new long[] { data[index] });
             for(int i = 7; i >= 0; i--){
-                System.out.println("Bit on index: "+i+" = "+ bits.get(i));
-                if(bits.get(i) == false){
-                    System.out.println("Increasing count");
+                if(!bits.get(i)){
                     count ++;
-                    System.out.println("count is now: "+count);
                 } else {
-                    System.out.println("Found bit 1, adding to decoded and reseting count");
-                    decoded.add(Integer.valueOf(count));
-                    System.out.println("Value added to decoded is: "+count);
+                    decoded.add((byte)count);
                     count = 0;
                 }
             }
@@ -44,12 +39,20 @@ public class UnaryCodification implements Encoder, Decoder {
         ArrayList<Byte> resultBytes = new ArrayList<>();
         byte resultByte = 0;
         int bitPosition = 0;
+        int aux;
 
         addHeaderValues(resultBytes);
 
         for(byte b : data) {
+
+            if(b<0){
+                aux=256+b;
+            } else{
+                aux=b;
+            }
+
             //add value size in zeroes
-            for(int i = 0; i < b; i++) {
+            for(int i = 0; i < aux; i++) {
                 if (bitPosition >= 8) {
                     //byte is complete, add to array and start over
                     resultBytes.add(resultByte);
