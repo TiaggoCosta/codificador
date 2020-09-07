@@ -10,7 +10,7 @@ import java.util.Collections;
 public class FibonacciCodification implements Encoder, Decoder {
 
     @Override
-    public String decode(byte[] data) {
+    public byte[] decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
         BitSet bits = BitSet.valueOf(data);
 
@@ -41,14 +41,13 @@ public class FibonacciCodification implements Encoder, Decoder {
             i++;
         }
 
-        StringBuilder result = new StringBuilder();
-
-        for (Integer integer : decoded) {
-            System.out.println("decoded: " + (char) integer.intValue());
-            result.append((char) integer.intValue());
+        byte[] decodedBytes = new byte[decoded.size()];
+        for (int i = 0; i < decodedBytes.length; i++) {
+            int ascii = decoded.get(i);
+            decodedBytes[i] = (byte)ascii;
         }
 
-        return result.toString();
+        return decodedBytes;
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.BitSet;
 public class EliasGammaCodification implements Encoder, Decoder {
 
     @Override
-    public String decode(byte[] data) {
+    public byte[] decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
         int count = 0;
         boolean charCodeArea = false;
@@ -17,13 +17,13 @@ public class EliasGammaCodification implements Encoder, Decoder {
         // count = ler(zeros)
         for(int index = 2; index < data.length; index++) {
             BitSet bits = BitSet.valueOf(new long[] { data[index] });
-            
+
             for(int i = 7; i >= 0; i--){
                 if(!charCodeArea) {
                     System.out.println("Bit on index: "+i+" = "+ bits.get(i));
                     if(bits.get(i) == false){
                         count ++;
-                    } else { 
+                    } else {
                         // le 1
                         System.out.println("Found stop bit 1");
                         System.out.println("Value of counter is: "+count);
@@ -51,17 +51,14 @@ public class EliasGammaCodification implements Encoder, Decoder {
                 }
             }
         }
-        
-        StringBuilder builder = new StringBuilder("");
-        for(int i = 0; i < decoded.size(); i++){
-            System.out.println("decoded: " + decoded.get(i));
-            System.out.println("Back to string: " + Integer.toString(decoded.get(i)));
+
+        byte[] decodedBytes = new byte[decoded.size()];
+        for (int i = 0; i < decodedBytes.length; i++) {
             int ascii = decoded.get(i);
-            char ch = (char) ascii;
-            builder.append(ch);
+            decodedBytes[i] = (byte)ascii;
         }
-        System.out.println("returning: " + builder);
-        return builder.toString();
+
+        return decodedBytes;
     }
 
     @Override
