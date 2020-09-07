@@ -117,6 +117,7 @@ public class Main {
 
                     if (decoder != null) {
                         String result = decoder.decode(data);
+                        System.out.println("resultado: " + result);
                         final String ext = ".dec";
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");

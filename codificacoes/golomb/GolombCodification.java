@@ -9,14 +9,56 @@ import java.util.BitSet;
 public class GolombCodification implements Encoder, Decoder {
 
     final int divisor;
+    final int suffixSize;
 
     public GolombCodification(int divisor) {
         this.divisor = divisor;
+        this.suffixSize = calculateLog2(divisor);
     }
 
     @Override
     public String decode(byte[] data) {
-        return "Implementar";
+        ArrayList<Integer> decoded = new ArrayList<>();
+        BitSet byteSuffix = new BitSet();
+        boolean binaryArea = false;
+        int countPrefix = 0;
+        int suffixSizeHelp = suffixSize;
+        int value, rest, result;
+
+        for(int index = 2; index < data.length; index++) {
+            BitSet bits = BitSet.valueOf(new long[] { data[index] });
+            for(int i = 7; i >= 0; i--){
+                if(!binaryArea) {
+                    if(!bits.get(i)){
+                        countPrefix++;
+                    } else {
+                        binaryArea = true;
+                    }
+                } else {
+                    if(bits.get(i)) {
+                        byteSuffix.set(suffixSizeHelp - 1);
+                    }
+                    suffixSizeHelp--;
+                    if(suffixSizeHelp <= 0) {
+                        value = countPrefix * divisor;
+                        rest = !byteSuffix.isEmpty() ? byteSuffix.toByteArray()[0] : 0;
+                        result = value + rest;
+                        decoded.add(result);
+                        countPrefix = 0;
+                        binaryArea = false;
+                        byteSuffix.clear();
+                        suffixSizeHelp = suffixSize;
+                    }
+                }
+            }
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (int ascii : decoded) {
+            char ch = (char) ascii;
+            builder.append(ch);
+        }
+        return builder.toString();
     }
 
     @Override
@@ -25,11 +67,7 @@ public class GolombCodification implements Encoder, Decoder {
         byte resultByte = 0;
         int bitPosition = 0;
 
-        int suffixSize = calculateLog2(divisor);
-
-        int value;
-        int rest;
-        int valToShift;
+        int value, rest, valToShift;
 
         addHeaderValues(resultBytes);
 
@@ -70,7 +108,7 @@ public class GolombCodification implements Encoder, Decoder {
                     bitPosition = 0;
                 }
 
-                if(bitsOfRest.get(i) == true) {
+                if(bitsOfRest.get(i)) {
                     valToShift = 7-bitPosition;
                     resultByte = (byte) (resultByte | (1<<valToShift));
                 }
