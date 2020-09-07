@@ -116,14 +116,12 @@ public class Main {
                     }
 
                     if (decoder != null) {
-                        String result = decoder.decode(data);
+                        byte[] result = decoder.decode(data);
                         final String ext = ".dec";
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");
                         String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                        FileWriter myWriter = new FileWriter(newPath);
-                        myWriter.write(result);
-                        myWriter.close();
+                        Files.write(Paths.get(newPath), result);
                         JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
                     }
                 } catch (IOException e) {
@@ -148,7 +146,7 @@ public class Main {
                             String inputValue = null;
 
                             while (invalidDivisor) {
-                                inputValue = JOptionPane.showInputDialog("Insira o valor do divisor: ");
+                                inputValue = JOptionPane.showInputDialog("Insira o valor do divisor: (Entre 1 e 255)");
 
                                 if (inputValue == null) {
                                     break;
@@ -158,7 +156,9 @@ public class Main {
                                     int divisor = Integer.parseInt(inputValue);
                                     encoder = new GolombCodification(divisor);
                                     System.out.println("Divisor: " + divisor);
-                                    invalidDivisor = false;
+                                    if(divisor > 0 && divisor < 256) {
+                                        invalidDivisor = false;
+                                    }
                                 } catch (Exception e) {
                                     //TODO: handle exception
                                 }

@@ -9,12 +9,56 @@ import java.util.BitSet;
 public class EliasGammaCodification implements Encoder, Decoder {
 
     @Override
-    public String decode(byte[] data) {
-        // n = ler(o)
-        // le 1
-        // binario = le(n+1)
-        // valorChar = int(binario)
-        return "Implementar";
+    public byte[] decode(byte[] data) {
+        ArrayList<Integer> decoded = new ArrayList<>();
+        int count = 0;
+        boolean charCodeArea = false;
+        String binario = "0";
+        // count = ler(zeros)
+        for(int index = 2; index < data.length; index++) {
+            BitSet bits = BitSet.valueOf(new long[] { data[index] });
+
+            for(int i = 7; i >= 0; i--){
+                if(!charCodeArea) {
+                    System.out.println("Bit on index: "+i+" = "+ bits.get(i));
+                    if(bits.get(i) == false){
+                        count ++;
+                    } else {
+                        // le 1
+                        System.out.println("Found stop bit 1");
+                        System.out.println("Value of counter is: "+count);
+                        charCodeArea = true;
+                    }
+                } else {
+                    System.out.println("Bit on index: "+i+" = "+ bits.get(i));
+                    System.out.println("Counter: " + count);
+                    System.out.println("Binario: " + binario);
+                    // binario = le(n+1)
+                    if(count > -1) {
+                        if(bits.get(i)){
+                            binario.concat("1");
+                        } else {
+                            binario.concat("0");
+                        }
+                        count--;
+                    } else {
+                        // valorChar = int(binario)
+                        decoded.add(Integer.valueOf(binario));
+                        count = 0;
+                        charCodeArea = false;
+                        binario = "0";
+                    }
+                }
+            }
+        }
+
+        byte[] decodedBytes = new byte[decoded.size()];
+        for (int i = 0; i < decodedBytes.length; i++) {
+            int ascii = decoded.get(i);
+            decodedBytes[i] = (byte)ascii;
+        }
+
+        return decodedBytes;
     }
 
     @Override

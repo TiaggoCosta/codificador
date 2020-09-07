@@ -9,7 +9,7 @@ import java.util.BitSet;
 public class UnaryCodification implements Encoder, Decoder {
 
     @Override
-    public String decode(byte[] data) {
+    public byte[] decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
         int count = 0;
 
@@ -30,16 +30,13 @@ public class UnaryCodification implements Encoder, Decoder {
             }
         }
 
-        StringBuilder builder = new StringBuilder("");
-        for(int i = 0; i < decoded.size(); i++){
-            System.out.println("decoded: " + decoded.get(i));
-            System.out.println("Back to string: " + Integer.toString(decoded.get(i)));
+        byte[] decodedBytes = new byte[decoded.size()];
+        for (int i = 0; i < decodedBytes.length; i++) {
             int ascii = decoded.get(i);
-            char ch = (char) ascii;
-            builder.append(ch);
+            decodedBytes[i] = (byte)ascii;
         }
-        System.out.println("returning: " + builder);
-        return builder.toString();
+
+        return decodedBytes;
     }
 
     @Override
