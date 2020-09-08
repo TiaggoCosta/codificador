@@ -18,10 +18,10 @@ public class EliasGammaCodification implements Encoder, Decoder {
         for(int index = 2; index < data.length; index++) {
             BitSet bits = BitSet.valueOf(new long[] { data[index] });
             
-            for(int i = 7; i >= 0; i--){
+            for(int i = 7; i >= 0; i--) {
                 if(!charCodeArea) {
                     System.out.println("Bit on index: "+i+" = "+ bits.get(i));
-                    if(bits.get(i) == false){
+                    if(bits.get(i) == false) {
                         count ++;
                     } else { 
                         // le 1
@@ -43,6 +43,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
                         count--;
                     } else {
                         // valorChar = int(binario)
+                        System.out.println("Binario final: " + binario);
                         decoded.add(Integer.valueOf(binario));
                         count = 0;
                         charCodeArea = false;
