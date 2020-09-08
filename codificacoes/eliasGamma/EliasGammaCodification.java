@@ -10,10 +10,10 @@ public class EliasGammaCodification implements Encoder, Decoder {
 
     @Override
     public byte[] decode(byte[] data) {
-        ArrayList<Integer> decoded = new ArrayList<>();
+        ArrayList<Byte> decoded = new ArrayList<>();
+        BitSet byteSuffix = new BitSet();
         int count = 0;
         boolean charCodeArea = false;
-        String binario = "0";
         // count = ler(zeros)
         for(int index = 2; index < data.length; index++) {
             BitSet bits = BitSet.valueOf(new long[] { data[index] });
@@ -21,7 +21,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
             for(int i = 7; i >= 0; i--){
                 if(!charCodeArea) {
                     System.out.println("Bit on index: "+i+" = "+ bits.get(i));
-                    if(bits.get(i) == false) {
+                    if(!bits.get(i)) {
                         count ++;
                     } else {
                         // le 1
@@ -32,22 +32,23 @@ public class EliasGammaCodification implements Encoder, Decoder {
                 } else {
                     System.out.println("Bit on index: "+i+" = "+ bits.get(i));
                     System.out.println("Counter: " + count);
-                    System.out.println("Binario: " + binario);
+                    System.out.println("Binario: " + byteSuffix.toString());
                     // binario = le(n+1)
                     if(count > -1) {
-                        if(bits.get(i)){
-                            binario.concat("1");
-                        } else {
-                            binario.concat("0");
-                        }
+                        if(bits.get(i)) {
+                            byteSuffix.set(count);
+                        } 
                         count--;
                     } else {
                         // valorChar = int(binario)
-                        System.out.println("Binario final: " + binario);
-                        decoded.add(Integer.valueOf(binario));
+                        byte[] converted = byteSuffix.toByteArray();
+                        System.out.println("byte = " + Integer.toBinaryString(converted[0]));
+                        System.out.println("Binario final: " + byteSuffix.toString());
+                        decoded.add(converted[0]);
                         count = 0;
                         charCodeArea = false;
-                        binario = "0";
+                        byteSuffix.clear();
+                        i++;
                     }
                 }
             }
