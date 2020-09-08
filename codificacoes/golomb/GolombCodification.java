@@ -17,8 +17,8 @@ public class GolombCodification implements Encoder, Decoder {
     }
 
     @Override
-    public String decode(byte[] data) {
-        ArrayList<Integer> decoded = new ArrayList<>();
+    public byte[] decode(byte[] data) {
+        ArrayList<Byte> decoded = new ArrayList<>();
         BitSet byteSuffix = new BitSet();
         boolean binaryArea = false;
         int countPrefix = 0;
@@ -43,7 +43,7 @@ public class GolombCodification implements Encoder, Decoder {
                         value = countPrefix * divisor;
                         rest = !byteSuffix.isEmpty() ? byteSuffix.toByteArray()[0] : 0;
                         result = value + rest;
-                        decoded.add(result);
+                        decoded.add((byte)result);
                         countPrefix = 0;
                         binaryArea = false;
                         byteSuffix.clear();
@@ -53,12 +53,12 @@ public class GolombCodification implements Encoder, Decoder {
             }
         }
 
-        StringBuilder builder = new StringBuilder();
-        for (int ascii : decoded) {
-            char ch = (char) ascii;
-            builder.append(ch);
+        byte[] decodedBytes = new byte[decoded.size()];
+        for (int i = 0; i < decodedBytes.length; i++) {
+            decodedBytes[i] = decoded.get(i);
         }
-        return builder.toString();
+
+        return decodedBytes;
     }
 
     @Override
@@ -67,13 +67,19 @@ public class GolombCodification implements Encoder, Decoder {
         byte resultByte = 0;
         int bitPosition = 0;
 
-        int value, rest, valToShift;
+        int value, rest, valToShift, aux;
 
         addHeaderValues(resultBytes);
 
         for(byte b : data) {
-            value = b / divisor;
-            rest = b - (value * divisor);
+            if(b<0){
+                aux=256+b;
+            } else{
+                aux=b;
+            }
+
+            value = aux / divisor;
+            rest = aux - (value * divisor);
 
             //add value size in zeroes
             for(int i = 0; i < value; i++) {
@@ -129,7 +135,7 @@ public class GolombCodification implements Encoder, Decoder {
 
         return result;
     }
-    
+
     private int calculateLog2(int value){
         return (int) (Math.log(value) / Math.log(2) + 1e-10);
     }

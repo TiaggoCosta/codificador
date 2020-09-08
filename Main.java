@@ -116,15 +116,12 @@ public class Main {
                     }
 
                     if (decoder != null) {
-                        String result = decoder.decode(data);
-                        System.out.println("resultado: " + result);
+                        byte[] result = decoder.decode(data);
                         final String ext = ".dec";
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");
                         String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                        FileWriter myWriter = new FileWriter(newPath);
-                        myWriter.write(result);
-                        myWriter.close();
+                        Files.write(Paths.get(newPath), result);
                         JOptionPane.showMessageDialog(null, "Decodificação concluída com sucesso");
                     }
                 } catch (IOException e) {

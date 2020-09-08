@@ -6,8 +6,8 @@ import codificacoes.Encoder;
 public class DeltaCodification implements Encoder, Decoder {
 
     @Override
-    public String decode(byte[] data) {
-        return "Implementar";
+    public byte[] decode(byte[] data) {
+        return null;
     }
 
     @Override

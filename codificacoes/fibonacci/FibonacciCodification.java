@@ -1,63 +1,69 @@
 package codificacoes.fibonacci;
 
+import codificacoes.CodingType;
 import codificacoes.Decoder;
 import codificacoes.Encoder;
 
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.Collections;
 
 public class FibonacciCodification implements Encoder, Decoder {
 
     @Override
-    public String decode(byte[] data) {
+    public byte[] decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
-        BitSet bits = BitSet.valueOf(data);
-
         int currentNumber = 1;
         int nextNumber = 2;
-        int count = 0;
 
-        for (int i = 0; i < bits.length(); i++) {
-            boolean bit = bits.get(i);
-            if (!bits.get(i - 1) || !bits.get(i)) {
-                currentNumber = 1;
-                nextNumber = 2;
-                decoded.add(count);
-                count = 0;
-            }
+        int decodeValue = 0;
 
-            System.out.println("Bit on index: " + i + " = " + bits.get(i));
+        int bitPosition = 7;
+        for (int bytePosition = 2; bytePosition < data.length; ) {
+            boolean bit = (data[bytePosition] & (1 << bitPosition)) > 0;
+            boolean nextBit = !(bitPosition - 1 < 0 && bytePosition + 1 > data.length - 1) && (data[bitPosition - 1 < 0 ? (bytePosition + 1) : bytePosition] & (1 << (bitPosition - 1 < 0 ? 7 : (bitPosition - 1)))) > 0;
+
+            System.out.println("Bit on index: " + bitPosition + " = " + bit);
             System.out.println("Value: " + currentNumber);
-            if (bits.get(i)) {
-                System.out.println("Total: " + count + " + " + currentNumber);
-                count += currentNumber;
-                System.out.println("Total: " + count);
+            if (bit) {
+                System.out.println("Total: " + decodeValue + " + " + currentNumber);
+                decodeValue += currentNumber;
+                System.out.println("Total: " + decodeValue);
             }
 
             int temp = currentNumber;
             currentNumber = nextNumber;
             nextNumber = temp + nextNumber;
-            i++;
+
+            bitPosition--;
+
+            if (bit && nextBit) {
+                currentNumber = 1;
+                nextNumber = 2;
+                decoded.add(decodeValue);
+                decodeValue = 0;
+                //pass stop bit
+                bitPosition--;
+            }
+
+            if (bitPosition < 0) {
+                bitPosition = 7 + bitPosition + 1;
+                bytePosition++;
+            }
         }
 
-        StringBuilder result = new StringBuilder();
-
-        for (Integer integer : decoded) {
-            System.out.println("decoded: " + (char) integer.intValue());
-            result.append((char) integer.intValue());
+        byte[] decodedBytes = new byte[decoded.size()];
+        for (int i = 0; i < decodedBytes.length; i++) {
+            int ascii = decoded.get(i);
+            decodedBytes[i] = (byte)ascii;
         }
 
-        return result.toString();
+        return decodedBytes;
     }
 
     @Override
     public byte[] encode(byte[] data) {
         ArrayList<Byte> resultBytes = new ArrayList<>();
-        int bytePosition;
-        int bitPosition;
         int totalBitsUsed = 0;
-        byte resultByte;
 
         for (byte b : data) {
             int value = Byte.toUnsignedInt(b);
@@ -73,10 +79,14 @@ public class FibonacciCodification implements Encoder, Decoder {
                 resultBytes.add((byte) 0);
             }
 
-            bytePosition = resultBytes.size() - 1;
-            resultByte = resultBytes.get(bytePosition);
+            int bytePosition = resultBytes.size() - 1;
+            byte resultByte = resultBytes.get(bytePosition);
 
-            bitPosition = 8 - totalBitsUsed % 8;
+            int bitPosition = 8 - totalBitsUsed % 8;
+
+            if (bitPosition >= 8) {
+                bitPosition = 8 - bitPosition;
+            }
 
             //start with stop bit (1)
             resultByte = (byte) (resultByte | (1 << bitPosition));
@@ -104,10 +114,12 @@ public class FibonacciCodification implements Encoder, Decoder {
             resultBytes.set(bytePosition, resultByte);
         }
 
-        byte[] result = new byte[resultBytes.size()];
+        byte[] result = new byte[resultBytes.size() + 2];
 
-        for (int i = 0; i < result.length; i++) {
-            result[i] = resultBytes.get(i);
+        addHeaderValues(result);
+
+        for (int i = 2; i < result.length; i++) {
+            result[i] = resultBytes.get(i - 2);
         }
 
         return result;
@@ -127,6 +139,11 @@ public class FibonacciCodification implements Encoder, Decoder {
         }
 
         return fibonacciNumbers;
+    }
+
+    private void addHeaderValues(byte[] result){
+        result[0] = (byte) CodingType.Fibonacci.getIdentifier();
+        result[1] = (byte) 0;
     }
 
 }
