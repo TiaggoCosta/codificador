@@ -9,6 +9,8 @@ import java.util.Collections;
 
 public class FibonacciCodification implements Encoder, Decoder {
 
+    private final int zeroValue = 235;
+
     @Override
     public byte[] decode(byte[] data) {
         ArrayList<Integer> decoded = new ArrayList<>();
@@ -22,12 +24,8 @@ public class FibonacciCodification implements Encoder, Decoder {
             boolean bit = (data[bytePosition] & (1 << bitPosition)) > 0;
             boolean nextBit = !(bitPosition - 1 < 0 && bytePosition + 1 > data.length - 1) && (data[bitPosition - 1 < 0 ? (bytePosition + 1) : bytePosition] & (1 << (bitPosition - 1 < 0 ? 7 : (bitPosition - 1)))) > 0;
 
-            System.out.println("Bit on index: " + bitPosition + " = " + bit);
-            System.out.println("Value: " + currentNumber);
             if (bit) {
-                System.out.println("Total: " + decodeValue + " + " + currentNumber);
                 decodeValue += currentNumber;
-                System.out.println("Total: " + decodeValue);
             }
 
             int temp = currentNumber;
@@ -39,6 +37,10 @@ public class FibonacciCodification implements Encoder, Decoder {
             if (bit && nextBit) {
                 currentNumber = 1;
                 nextNumber = 2;
+                if (decodeValue == zeroValue) {
+                    decodeValue = 0;
+                }
+
                 decoded.add(decodeValue);
                 decodeValue = 0;
                 //pass stop bit
@@ -66,6 +68,10 @@ public class FibonacciCodification implements Encoder, Decoder {
         int totalBitsUsed = 0;
 
         for (byte b : data) {
+            if (b == 0) {
+                b = (byte)zeroValue;
+            }
+
             int value = Byte.toUnsignedInt(b);
             int rest = value;
             ArrayList<Integer> fibonacciNumbers = getFibonacciNumbersByValue(value);
@@ -75,7 +81,7 @@ public class FibonacciCodification implements Encoder, Decoder {
             int totalBytes = (int) Math.ceil(totalBitsUsed / 8.00);
 
             //add empty bytes
-            for (int i = 0; resultBytes.size() != totalBytes; i++) {
+            while (resultBytes.size() < totalBytes) {
                 resultBytes.add((byte) 0);
             }
 
