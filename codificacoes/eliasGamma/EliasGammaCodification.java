@@ -21,9 +21,6 @@ public class EliasGammaCodification implements Encoder, Decoder {
 
             for(int i = 7; i >= 0; i--){
                 if(charCodeArea) {
-                    System.out.println("Bit on index: "+i+" == "+ bits.get(i));
-                    System.out.println("Counter: " + count);
-                    
                     // binario = le(n+1)
                     if(isZero) {
                         if(bits.get(i)) {
@@ -31,7 +28,6 @@ public class EliasGammaCodification implements Encoder, Decoder {
                         } else {
                             decoded.add((byte)0);
                         }
-                        System.out.println("byte convertido => " + Integer.toBinaryString((byte)0));
                         charCodeArea = false;
                         isZero = false;
                         byteSuffix.clear();
@@ -39,17 +35,13 @@ public class EliasGammaCodification implements Encoder, Decoder {
                         continue;
                     }
                     if(count > -1) {
-                            System.out.println(">0 "+isZero);
                             if(bits.get(i)) {
                                 byteSuffix.set(count);
                             } 
-                        
-                        System.out.println("Binario: " + byteSuffix.toString());
+
                         if(count == 0) {
                             // valorChar = int(binario)
                             byte[] converted = byteSuffix.toByteArray();
-                            System.out.println("byte convertido = " + Integer.toBinaryString(converted[0]));
-                            System.out.println("Binario final: " + byteSuffix.toString());
                             decoded.add(converted[0]);
                             count = 0;
                             charCodeArea = false;
@@ -59,21 +51,16 @@ public class EliasGammaCodification implements Encoder, Decoder {
                         count--;
                     } 
                 } else {
-                    System.out.println("Bit on index: "+i+" = "+ bits.get(i));
-                if(!bits.get(i)) {
-                    count ++;
-                } else {
-                    // le 1
-                    System.out.println("Found stop bit 1");
-                    System.out.println("Value of counter is: "+count);
-                    charCodeArea = true;
-                    if(count == 0) {
-                        isZero = true;
+                    if(!bits.get(i)) {
+                        count ++;
+                    } else {
+                        // le 1
+                        charCodeArea = true;
+                        if(count == 0) {
+                            isZero = true;
+                        }
                     }
                 }
-                }
-                
-                
             }
         }
 
@@ -81,9 +68,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
         for (int i = 0; i < decodedBytes.length; i++) {
             int ascii = decoded.get(i);
             decodedBytes[i] = (byte)ascii;
-            System.out.println("byte => " + ascii);
         }
-        
         return decodedBytes;
     }
 
@@ -95,24 +80,8 @@ public class EliasGammaCodification implements Encoder, Decoder {
 
         addHeaderValues(resultBytes);
         ArrayList<Integer> bits = new ArrayList<>();
-        byte um = (byte)1;
-        byte dois = (byte)2;
-        byte zero = (byte)0;
-        byte exclamacao = (byte)33;
-        byte[] data1 = new byte[8];
-        data1[0] = um;
-        data1[1] = dois;
-        data1[2] = zero;
-        data1[3] = exclamacao;
-        data1[4] = zero;
-        data1[5] = um;
-        data1[6] = zero;
-        data1[7] = exclamacao;
         for(byte b : data) {
             // b = valor inteiro do char
-            System.out.println("valor char = " + b);
-            System.out.println("byte = " + Integer.toBinaryString(b));
-            System.out.println("tamanho do byte = " + Integer.toBinaryString(b).length());
             // tamanho do byte = k
             int byteLength = Integer.toBinaryString(b).length();
             
@@ -172,12 +141,6 @@ public class EliasGammaCodification implements Encoder, Decoder {
         for (int i = 0; i < result.length; i++) {
             result[i] = resultBytes.get(i);
         }
-
-        System.out.println(resultBytes.toString());
-        for(byte b : resultBytes) {
-            System.out.println("byte = " + Integer.toBinaryString(b));
-        }
-        System.out.println(bits.toString());
         return result;
     }
 
