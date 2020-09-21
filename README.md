@@ -40,7 +40,7 @@ A estrutura do processo é a seguinte: a partir da leitura do arquivo original, 
 
 <hr>
 <h4>Referências</h4>
-<p>https://www.geeksforgeeks.org/bitwise-operators-in-java/</p>
-<p>https://www.dei.isep.ipp.pt/~asc/tiny-papers/java-unsigned-bytes.pdf</p>
-<p>https://www.techiedelight.com/calculate-log-base-2-in-java/</p>
+<p>Bitwise Java - https://www.geeksforgeeks.org/bitwise-operators-in-java/</p>
+<p>Java unsigned bytes - https://www.dei.isep.ipp.pt/~asc/tiny-papers/java-unsigned-bytes.pdf</p>
+<p>Log base 2 java - https://www.techiedelight.com/calculate-log-base-2-in-java/</p>
 <hr>
