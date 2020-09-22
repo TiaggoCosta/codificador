@@ -1,19 +1,26 @@
+import static codificacoes.CodingType.Delta;
+import static codificacoes.CodingType.EliasGamma;
+import static codificacoes.CodingType.Fibonacci;
+import static codificacoes.CodingType.Golomb;
+import static codificacoes.CodingType.Unary;
+import static codificacoes.CodingType.getValueByName;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import codificacoes.CodingType;
 import codificacoes.Decoder;
 import codificacoes.Encoder;
 import codificacoes.delta.DeltaCodification;
 import codificacoes.eliasGamma.EliasGammaCodification;
 import codificacoes.fibonacci.FibonacciCodification;
-import codificacoes.golomb.GolombCodification;
 import codificacoes.unaria.UnaryCodification;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import static codificacoes.CodingType.*;
 
 public class Main {
 
