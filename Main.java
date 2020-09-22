@@ -13,8 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-
 import static codificacoes.CodingType.*;
 
 public class Main {
@@ -28,13 +26,7 @@ public class Main {
             int op = JOptionPane.showOptionDialog(null, "Escolha a função desejada: (Para encerrar feche a janela!)", "Função",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, functions, functions[0]);
 
-            if (op == 0) {
-                System.out.println("Codificar: " + op);
-            } else if (op == 1) {
-                System.out.println("Decodificar: " + op);
-            }
             if (op == -1) {
-                System.out.println("Finalizar: " + op);
                 Object[] options = {"Sim, finalizar programa", "Não, desejo recomeçar"};
                 int end = JOptionPane.showOptionDialog(null, "Deseja encerrar o programa?", "Finalizar",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
@@ -72,45 +64,35 @@ public class Main {
             }
 
             if (retVal == 1) {
-                System.out.println("Cancel/close: " + retVal);
                 continue;
-            } else if (retVal == 0) {
-                System.out.println("Open: " + retVal);
             }
 
             if (op == 1) {
                 try {
                     Decoder decoder = null;
                     byte[] data = Files.readAllBytes(selectedFile.toPath());
-                    System.out.println("decoder: " + data[0]);
                     switch (data[0]) {
                         case 0:
-                            System.out.println("Decoder Golomb, divisor: " + data[1]);
                             decoder = new GolombCodification(data[1]);
                             break;
 
                         case 1:
-                            System.out.println("Decoder Elias-Gamma");
                             decoder = new EliasGammaCodification();
                             break;
 
                         case 2:
-                            System.out.println("Decoder Fibonacci");
                             decoder = new FibonacciCodification();
                             break;
 
                         case 3:
-                            System.out.println("Decoder Unária");
                             decoder = new UnaryCodification();
                             break;
 
                         case 4:
-                            System.out.println("Decoder Delta");
                             decoder = new DeltaCodification();
                             break;
 
                         default:
-                            System.out.println("Something went wrong! decoder: " + data[0]);
                             break;
                     }
 
@@ -133,7 +115,6 @@ public class Main {
                         JOptionPane.INFORMATION_MESSAGE, null, items, items[0]);
 
                 if (selectedValue == null) {
-                    System.out.println("Close: " + selectedValue);
                     continue;
                 } else {
                     final CodingType selectedCodingType = getValueByName((String) selectedValue);
@@ -154,12 +135,11 @@ public class Main {
                                 try {
                                     int divisor = Integer.parseInt(inputValue);
                                     encoder = new GolombCodification(divisor);
-                                    System.out.println("Divisor: " + divisor);
                                     if(divisor > 0 && divisor < 256) {
                                         invalidDivisor = false;
                                     }
                                 } catch (Exception e) {
-                                    //TODO: handle exception
+                                    // e.printStackTrace();
                                 }
                             }
 
@@ -181,9 +161,6 @@ public class Main {
                             break;
                     }
 
-                    System.out.println("Codificação do arquivo: " + selectedFile.getPath());
-                    System.out.println("Codificador: " + selectedCodingType.getName());
-                    //TODO: class or method to read and write the files
                     try {
                         byte[] data = Files.readAllBytes(selectedFile.toPath());
                         byte[] result = encoder.encode(data);
@@ -191,7 +168,6 @@ public class Main {
                         String filePath = selectedFile.getPath();
                         int extIndex = filePath.lastIndexOf(".");
                         String newPath = (extIndex > -1 ? filePath.substring(0, extIndex) : filePath) + ext;
-                        System.out.println("resultado: " + Arrays.toString(result));
                         Files.write(Paths.get(newPath), result);
                         JOptionPane.showMessageDialog(null, "Codificação concluída com sucesso");
                     } catch (IOException e) {
@@ -203,4 +179,3 @@ public class Main {
         System.exit(0);
     }
 }
-
