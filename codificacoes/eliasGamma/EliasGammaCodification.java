@@ -35,9 +35,9 @@ public class EliasGammaCodification implements Encoder, Decoder {
                         continue;
                     }
                     if(count > -1) {
-                            if(bits.get(i)) {
-                                byteSuffix.set(count);
-                            } 
+                        if(bits.get(i)) {
+                            byteSuffix.set(count);
+                        } 
 
                         if(count == 0) {
                             // valorChar = int(binario)
@@ -79,7 +79,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
         int bitPosition = 0;
 
         addHeaderValues(resultBytes);
-        ArrayList<Integer> bits = new ArrayList<>();
+
         for(byte b : data) {
             // b = valor inteiro do char
             // tamanho do byte = k
@@ -93,7 +93,6 @@ public class EliasGammaCodification implements Encoder, Decoder {
                     resultByte = 0;
                     bitPosition = 0;
                 } 
-                bits.add(0);
                 bitPosition++;
             }
             // escreve 1
@@ -106,7 +105,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
             int valToShift = 7-bitPosition;
             resultByte = (byte) (resultByte | (1<<valToShift));
             bitPosition++;
-            bits.add(1);
+
             // escreve binario(b)
             for (int i = 0; i < byteLength; i++) {
                 if (bitPosition >= 8) {
@@ -120,12 +119,7 @@ public class EliasGammaCodification implements Encoder, Decoder {
                 if(bitsOfRest.charAt(i) == '1') {
                     valToShift = 7-bitPosition;
                     resultByte = (byte) (resultByte | (1<<valToShift));
-                    bits.add(1);
-                } else {
-                    /* valToShift = 7-bitPosition;
-                    resultByte = (byte) (resultByte | (0<<valToShift)); */
-                    bits.add(0);
-                }
+                } 
 
                 bitPosition++;
             }
