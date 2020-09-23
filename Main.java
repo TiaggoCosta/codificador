@@ -20,6 +20,7 @@ import codificacoes.Encoder;
 import codificacoes.delta.DeltaCodification;
 import codificacoes.eliasGamma.EliasGammaCodification;
 import codificacoes.fibonacci.FibonacciCodification;
+import codificacoes.golomb.GolombCodification;
 import codificacoes.unaria.UnaryCodification;
 
 public class Main {
