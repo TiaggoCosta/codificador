@@ -7,6 +7,36 @@
 <p>👨‍🎓 Tiago Costa</p>
 <p>👨‍🎓 Rafael Stefani Baptista</p>
 <hr>
+
+
+### HOW TO RUN
+
+Para rodar a implementação feita pelo grupo, basta rodar a classe **Main**. 
+
+A partir dai, um menu aparecerá na tela, como abaixo:
+
+
+![menu](images/menu.png)
+
+
+Ao selecionar a opção **Codificar** será necessário informar qual o arquivo a ser codificado, podendo ser o arquivo sum, alice.txt ou outro. 
+
+Após selecionar o arquivo, é necessário selecionar qual o método de codificação. Para isso, basta fazer a seleção pelo menu, como abaixo: 
+
+![menu](images/codificacoes.png)
+
+Caso seja selecionado a codificação Golomb, então deve-se ainda entrar o valor de divisor a ser utilizado.
+
+Depois de entradas todas as informações, a codificação é feita, gerando um arquivo .cod.
+
+
+Se for selecionada a opção **Decodificar**, então só poderão ser selecionados arquivos .cod. 
+
+Após a seleção do arquivo, é iniciada a decodificação, que é feita a partir da leitura do cabeçalho para descobrir qual método de codificação foi utilizada, e assim utilizar o seu correspondente para decodificação.
+
+Ao final da decodificação um arquivo .dec é gerado.
+
+<hr>
 <h3>Objetivo do T1:</h3>
 
 <p>Elaborar uma solução computacional que codifique (compacte) e decodifique (descompacte) arquivos. Para isto deve ser implementado um protótipo que deve ser testado com a compactação e descompactação dos arquivos 📄alice29.txt e 📄sum do corpus de Canterbury (corpus.canterbury.ac.nz/descriptions/#cantrbry).
