@@ -72,18 +72,6 @@ A estrutura do processo é a seguinte: a partir da leitura do arquivo original, 
 <p>• O encoder e o decoder podem ser na realidade o mesmo programa, sendo somente parametrizado de forma distinta para cada caso (um parâmetro pode ser o modo de operação: codificar ou decodificar).</p>
 
 <hr>
-<h4>🛠 TBD ⚒</h4>
-
-<p>(✔) Menu</p>
-<p>(✔) Leitura</p>
-<p>(✔) Escrita</p>
-<p>(✔) Unária</p> 
-<p>📙Delta</p>
-<p>📕Fibonacci</p>
-<p>📗Elias-Gamma</p>
-<p>📘Golomb</p>
-
-<hr>
 <h4>Referências</h4>
 <p>Bitwise Java - https://www.geeksforgeeks.org/bitwise-operators-in-java/</p>
 <p>Java unsigned bytes - https://www.dei.isep.ipp.pt/~asc/tiny-papers/java-unsigned-bytes.pdf</p>
