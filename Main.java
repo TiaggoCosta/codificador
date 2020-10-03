@@ -1,4 +1,3 @@
-import static codificacoes.CodingType.Delta;
 import static codificacoes.CodingType.EliasGamma;
 import static codificacoes.CodingType.Fibonacci;
 import static codificacoes.CodingType.Golomb;
