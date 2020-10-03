@@ -51,6 +51,12 @@ O código tem a seguinte estrutura:
 
 O grupo utilizou para a maioria das decodificações (exceto fibonacci, onde foi utilizado somente bitwise) o [BitSet](https://docs.oracle.com/javase/7/docs/api/java/util/BitSet.html), que é uma estrutura do Java para acesso a bits, o que facilita para verificação de onde encontra-se o delimitador da codificação.
 
+Para a codificação/decodificação Fibonacci, utilizou-se o valor ascii 235 para representar o valor 0, visto que a codificação Fibonacci não faz diretamente a codificação deste valor.
+
+Foi escolhido o valor ascii 235 pois este é o valor que, observando na ánalise de frequencia disponibilizada dos arquivos sum e alice.txt, não aparece em nenhum dos arquivos. Dessa forma, nenhum dos outros valores é impactado.
+
+O grupo não implementou nenhuma forma de dicionário no trabalho.
+
 <hr>
 <h3>Objetivo do T1:</h3>
 
