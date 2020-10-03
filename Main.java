@@ -118,7 +118,7 @@ public class Main {
                 }
             } else {
                 // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
-                Object[] items = {Golomb.getName(), EliasGamma.getName(), Fibonacci.getName(), Unary.getName(), Delta.getName()};
+                Object[] items = {Golomb.getName(), EliasGamma.getName(), Fibonacci.getName(), Unary.getName()};
                 Object selectedValue = JOptionPane.showInputDialog(null, "Escolha um codificador:", "Opção",
                         JOptionPane.INFORMATION_MESSAGE, null, items, items[0]);
 
