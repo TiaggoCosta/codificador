@@ -37,6 +37,21 @@ Após a seleção do arquivo, é iniciada a decodificação, que é feita a part
 Ao final da decodificação um arquivo .dec é gerado.
 
 <hr>
+
+### Informações da Implementação
+
+As codificações e decodificações implementadas foram: Unária, Elias-Gamma, Golomb e Fibonacci. Todas foram implementadas pelo grupo, não foram utilizadas bibliotecas.
+
+Alguns códigos auxiliares foram utilizados, como o cálculo de log na base 2 de um número, para a codificação Golomb. A referência para o código utilizado pode ser encontrada ao final deste Readme.
+
+O código tem a seguinte estrutura:
+
+- Uma interface Encoder, que define o contrato que todas as codificações seguem para realizar a codificação.
+- Uma interface Decoder, que define o contrato que todas as codificações seguem para realizar a decodificação.
+
+O grupo utilizou para a maioria das decodificações (exceto fibonacci, onde foi utilizado somente bitwise) o [BitSet](https://docs.oracle.com/javase/7/docs/api/java/util/BitSet.html), que é uma estrutura do Java para acesso a bits, o que facilita para verificação de onde encontra-se o delimitador da codificação.
+
+<hr>
 <h3>Objetivo do T1:</h3>
 
 <p>Elaborar uma solução computacional que codifique (compacte) e decodifique (descompacte) arquivos. Para isto deve ser implementado um protótipo que deve ser testado com a compactação e descompactação dos arquivos 📄alice29.txt e 📄sum do corpus de Canterbury (corpus.canterbury.ac.nz/descriptions/#cantrbry).
