@@ -1,9 +1,3 @@
-import static codificacoes.CodingType.EliasGamma;
-import static codificacoes.CodingType.Fibonacci;
-import static codificacoes.CodingType.Golomb;
-import static codificacoes.CodingType.Unary;
-import static codificacoes.CodingType.getValueByName;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,6 +15,8 @@ import codificacoes.eliasGamma.EliasGammaCodification;
 import codificacoes.fibonacci.FibonacciCodification;
 import codificacoes.golomb.GolombCodification;
 import codificacoes.unaria.UnaryCodification;
+
+import static codificacoes.CodingType.*;
 
 public class Main {
 
@@ -117,7 +113,7 @@ public class Main {
                 }
             } else {
                 // escolher codificador (0: Golomb, 1:Elias-Gamma, 2:Fibonacci, 3:Unária e 4:Delta)
-                Object[] items = {Golomb.getName(), EliasGamma.getName(), Fibonacci.getName(), Unary.getName()};
+                Object[] items = {Golomb.getName(), EliasGamma.getName(), Fibonacci.getName(), Unary.getName(), Delta.getName()};
                 Object selectedValue = JOptionPane.showInputDialog(null, "Escolha um codificador:", "Opção",
                         JOptionPane.INFORMATION_MESSAGE, null, items, items[0]);
 
