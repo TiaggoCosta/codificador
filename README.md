@@ -40,7 +40,7 @@ Ao final da decodificação um arquivo .dec é gerado.
 
 ### Informações da Implementação
 
-As codificações e decodificações implementadas foram: Unária, Elias-Gamma, Golomb e Fibonacci. Todas foram implementadas pelo grupo, não foram utilizadas bibliotecas.
+As codificações e decodificações implementadas foram: Unária, Elias-Gamma, Golomb e Fibonacci. Todas foram implementadas pelo grupo, não foram utilizadas bibliotecas. A ressalva neste ponto fica para a codificação Delta, que foi iniciada pelo grupo, no entanto, não foi possível finalizá-la por algumas limitações.
 
 Alguns códigos auxiliares foram utilizados, como o cálculo de log na base 2 de um número, para a codificação Golomb. A referência para o código utilizado pode ser encontrada ao final deste Readme.
 
